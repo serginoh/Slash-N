@@ -12,7 +12,7 @@
     /* Couleur jaune pour le soleil */
     --colo-switch: rgb(89, 29, 145);
     /* Fond du switch blanc */
-    --bg-nav: #451f55;
+    --bg-nav: rgb(16, 12, 29);
     --bg-body: white;
     --text-body: black;
     --bg-footer: black;
@@ -52,6 +52,50 @@ nav {
     padding: 3dvh 8dvh;
     background-color: var(--bg-nav);
     transition: background-color 0.3s ease;
+
+#menu {
+        position: relative;
+        padding-bottom: 10px;
+        margin-bottom: -10px;
+    }
+
+    #menuChapitres {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        left: -120%;
+        top: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        border: 1px solid #6e3288;
+        z-index: 10;
+        transform: translateY(-10px);
+        border-radius: 1em;
+        background: linear-gradient(315deg, rgb(23, 0, 58) 0%, rgb(38, 0, 44) 51%, rgb(26, 0, 37) 100%);
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease,
+            visibility 0.25s;
+
+        a {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 1s steps(20, end);
+            white-space: nowrap;
+            padding-bottom: 2px;
+            border-bottom: 2px solid gray;
+        }
+    }
+
+    #menu:hover #menuChapitres {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #menu:hover #menuChapitres a {
+        clip-path: inset(0 0 0 0);
+    }
 
     a {
         margin-right: 7dvh;
@@ -107,8 +151,28 @@ body.dark-mode .switch .btn {
 }
 
 #ACCUEIL {
-    background-color: rgb(255, 255, 255);
+    color: white;
+    position: relative;
+    overflow: hidden;
 
+    > img{
+        width: 105%;
+        height: 115%;
+        filter: blur(6px) brightness(75%) hue-rotate(290deg);
+        position: absolute;
+        z-index: -10;
+        left: -10px;
+        top: -10px;
+        /* position: absolute;
+            width: auto;
+            height: 120%;
+            max-width: none;
+        
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); */
+    }
+    
     #en-tete {
         display: flex;
         justify-content: end;
@@ -122,10 +186,9 @@ body.dark-mode .switch .btn {
             background-color: #451f55;
             position: relative;
             color: white;
-
         }
 
-        img {
+        #LogoConnexionGoogle{
             width: 3.5em;
             height: 3.5em;
             background-color: rgb(231, 231, 231);
@@ -142,12 +205,11 @@ body.dark-mode .switch .btn {
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        margin-top: 5em;
         margin-bottom: 7em;
 
         h1 {
             font-size: 10em;
-            color: #451f55;
+            color: #ffbb28;
         }
 
         h2 {
@@ -158,7 +220,7 @@ body.dark-mode .switch .btn {
             font-size: 2em;
             font-weight: 300;
             margin-top: 3dvh;
-            width: 33%;
+            width: 40%;
             text-align: center;
         }
 
@@ -204,7 +266,7 @@ body.dark-mode .switch .btn {
 #PARTIE-PRESENTATION-PHP {
     height: 200dvh;
     background-color: #451f55;
-    padding: 2em;
+    background: linear-gradient(315deg, rgba(79, 0, 59, 1) 0%, rgba(66, 0, 79, 1) 51%, rgba(6, 0, 66, 1) 100%);    padding: 2em;
     display: flex;
     flex-direction: column;
     gap: 5em;
@@ -223,6 +285,9 @@ body.dark-mode .switch .btn {
             margin-bottom: 1em;
         }
     }
+    article:nth-child(2){
+        align-self: end;
+    }
 }
 
 
@@ -230,7 +295,6 @@ body.dark-mode .switch .btn {
 
 
 footer {
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
