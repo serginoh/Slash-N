@@ -1,0 +1,249 @@
+* {
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+:root {
+    /* ── MODE CLAIR (PAR DÉFAUT) ── */
+    --color-border: black;
+    --color-btn: ;
+    /* Couleur jaune pour le soleil */
+    --colo-switch: rgb(89, 29, 145);
+    /* Fond du switch blanc */
+    --bg-nav: blueviolet;
+    --bg-body: white;
+    --text-body: black;
+    --bg-footer: black;
+    --text-footer: white;
+
+    --bg-btn-image: none;
+    /* Pas d'image de fond en mode clair */
+}
+
+/* Redéfinition des couleurs lorsque le mode sombre est actif */
+body.dark-mode {
+    /* ── MODE SOMBRE ── */
+    --color-border: #ffffff;
+    --color-btn: #f1c40f;
+    /* Couleur pour la lune */
+    --colo-switch: #1e2939;
+    --bg-nav: #111827;
+    --bg-body: #121212;
+    --text-body: #f8f9fa;
+    --bg-footer: #1f1f1f;
+    --text-footer: #a0a0a0;
+
+    /* Intégration de la photo du ciel étoilé dans le bouton rond */
+    --bg-btn-image: url(../images/1230968-ciel-etoile-gratuit-photo.jpeg);
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-body);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 3dvh 8dvh;
+    background-color: var(--bg-nav);
+    transition: background-color 0.3s ease;
+
+    a {
+        margin-right: 7dvh;
+        text-decoration: none;
+        font-size: 1.25rem;
+        color: var(--text-body);
+        transition: color 0.3s ease;
+    }
+}
+
+.switch {
+    display: flex;
+    align-items: center;
+    width: 10dvh;
+    height: 3.333dvh;
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: 1.667dvh;
+    background-color: var(--colo-switch);
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+
+    .btn {
+        /* Gestion de l'arrière-plan du bouton (image ou uni) */
+        background-image: var(--bg-btn-image);
+        background-size: cover;
+        background-position: center;
+        background-color: white;
+
+        width: 3.111dvh;
+        height: 3.111dvh;
+        border-radius: 50%;
+        position: absolute;
+        top: 0dvh;
+        left: 0.111dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, background-color 0.3s, background-image 0.3s;
+
+        i {
+            color: var(--color-btn);
+            font-size: 1.8dvh;
+            transition: color 0.3s;
+        }
+    }
+}
+
+/* Déplacement fluide du bouton vers la droite en mode sombre */
+body.dark-mode .switch .btn {
+    transform: translateX(6.444dvh);
+}
+
+#ACCUEIL {
+    background-color: rgb(255, 255, 255);
+
+    #en-tete {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 3em;
+
+        button {
+            width: 12em;
+            height: 3em;
+            border: none;
+            background-color: blueviolet;
+            position: relative;
+            color: white;
+
+        }
+
+        img {
+            width: 3.5em;
+            height: 3.5em;
+            background-color: rgb(231, 231, 231);
+            border-radius: 50%;
+            border: 3px solid blueviolet;
+            position: absolute;
+            right: 11.5em;
+        }
+    }
+
+    #principal {
+        /* background-color: red; */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 5em;
+        margin-bottom: 7em;
+
+        h1 {
+            font-size: 10em;
+            color: blueviolet;
+        }
+
+        h2 {
+            font-size: 5em;
+        }
+
+        h3 {}
+
+        h4 {
+            font-size: 2em;
+            font-weight: 300;
+            margin-top: 3dvh;
+            width: 33%;
+            text-align: center;
+        }
+
+        div {
+            display: flex;
+            width: 50%;
+            height: 2.5em;
+            margin: 1em;
+            /* background-color: red; */
+            gap: 5px;
+
+            input {
+                width: 80%;
+                font-size: 1.5em;
+                padding-inline: .5em;
+            }
+
+            button {
+                width: 12em;
+                height: 3em;
+                border: none;
+                border-radius: .5em;
+                background-color: blueviolet;
+                position: relative;
+                color: white;
+            }
+        }
+
+        a {
+            align-self: start;
+            margin-left: 25dvw;
+
+            img {
+                width: 5em;
+            }
+        }
+
+    }
+}
+
+
+
+#PARTIE-PRESENTATION-PHP {
+    height: 200dvh;
+    background-color: blueviolet;
+    padding: 2em;
+
+    .article {
+        display: flex;
+
+        img {
+            height: 60dvh;
+            border-radius: 2em;
+        }
+
+        h2 {
+            color: aqua;
+        }
+    }
+}
+
+
+
+
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 10dvh;
+    background-color: var(--bg-footer);
+    color: var(--text-footer);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    img {
+        max-height: 100%;
+        height: auto;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+}
