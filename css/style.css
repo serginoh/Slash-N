@@ -12,7 +12,7 @@
     /* Couleur jaune pour le soleil */
     --colo-switch: rgb(89, 29, 145);
     /* Fond du switch blanc */
-    --bg-nav: blueviolet;
+    --bg-nav: #451f55;
     --bg-body: white;
     --text-body: black;
     --bg-footer: black;
@@ -59,6 +59,7 @@ nav {
         font-size: 1.25rem;
         color: var(--text-body);
         transition: color 0.3s ease;
+        color: white;
     }
 }
 
@@ -118,7 +119,7 @@ body.dark-mode .switch .btn {
             width: 12em;
             height: 3em;
             border: none;
-            background-color: blueviolet;
+            background-color: #451f55;
             position: relative;
             color: white;
 
@@ -129,7 +130,7 @@ body.dark-mode .switch .btn {
             height: 3.5em;
             background-color: rgb(231, 231, 231);
             border-radius: 50%;
-            border: 3px solid blueviolet;
+            border: 3px solid #451f55;
             position: absolute;
             right: 11.5em;
         }
@@ -146,14 +147,12 @@ body.dark-mode .switch .btn {
 
         h1 {
             font-size: 10em;
-            color: blueviolet;
+            color: #451f55;
         }
 
         h2 {
             font-size: 5em;
         }
-
-        h3 {}
 
         h4 {
             font-size: 2em;
@@ -182,7 +181,7 @@ body.dark-mode .switch .btn {
                 height: 3em;
                 border: none;
                 border-radius: .5em;
-                background-color: blueviolet;
+                background-color: #451f55;
                 position: relative;
                 color: white;
             }
@@ -204,19 +203,24 @@ body.dark-mode .switch .btn {
 
 #PARTIE-PRESENTATION-PHP {
     height: 200dvh;
-    background-color: blueviolet;
+    background-color: #451f55;
     padding: 2em;
-
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
     .article {
+        width: 90%;
         display: flex;
-
+        gap: 5dvw;
+        font-size: 1.5em;
+        color: white;
         img {
-            height: 60dvh;
-            border-radius: 2em;
+            height: 50dvh;
+            border-radius: 2rem;
         }
-
         h2 {
             color: aqua;
+            margin-bottom: 1em;
         }
     }
 }
