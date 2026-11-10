@@ -1,47 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03- Les tableaux - Slash N</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3. Les tableaux - Slash N</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-
-<body>
-
-    <nav>
-        <a href="../index.html">Accueil</a>
-        <a href="#">Chapitres</a>
-        <a href="../contact.html">Contact</a>
-        <a href="../inscription.html">Inscription</a>
-
-    </nav>
-
+  <body>
     <main>
-        <h1>3. Les tableaux</h1>
+      <h1>Chapitre 03 – Les tableaux</h1>
 
-        <section>
-            <h2>Introduction</h2>
-            <p>Dans ce chapitre nous allons découvrir un nouveau type de données : Les tableaux.</p>
-        </section>
+      <section>
+        <h2>Introduction</h2>
+        <p>
+          Imaginons qu’on doive sauvegarder plusieurs notes d’un élève. Créer
+          une variable pour chaque note devient vite ingérable. Les tableaux
+          permettent de stocker une liste de valeurs dans une seule variable.
+        </p>
+      </section>
 
-        <section>
-            <h2>Les tableaux indexés</h2>
-            <p>Pour créer un tableau, on utilise les crochets :</p>
-            <pre><code>$notes = [10, 20, 9, 8];</code></pre>
+      <section>
+        <h2>Les tableaux indexés</h2>
+        <p>
+          Pour créer un tableau, on utilise les crochets et on sépare les
+          valeurs par des virgules :
+        </p>
+        <pre><code class="language-php">&lt;?php
+$notes = [10, 20, 9, 8];
+?&gt;</code></pre>
+        <p>
+          Chaque valeur est accessible via son index. Attention : les index
+          commencent à <strong>0</strong>.
+        </p>
+        <pre><code class="language-php">&lt;?php
+echo $notes[1]; // Affiche 20
+echo $notes[3]; // Affiche 8
+?&gt;</code></pre>
+      </section>
 
-            
-            <!-- <pre> = garde la mise en forme (espaces, retours à la ligne)
-            <code> = indique que c’est du code
-            Résultat sur le site : le code PHP s’affiche dans un bloc, comme dans un éditeur. -->
+      <section>
+        <h2>Les tableaux associatifs</h2>
+        <p>
+          On peut aussi donner des noms (clés) aux valeurs avec la syntaxe
+          <code>=></code> :
+        </p>
+        <pre><code class="language-php">&lt;?php
+$eleve = [
+    'nom' => 'Doe',
+    'prenom' => 'Jean',
+    'notes' => [10, 20, 15]
+];
+?&gt;</code></pre>
+        <p>Pour accéder à une valeur, on utilise la clé :</p>
+        <pre><code class="language-php">&lt;?php
+echo $eleve['prenom']; // Affiche Jean
+echo $eleve['prenom'] . ' ' . $eleve['nom']; // Affiche Jean Doe
+?&gt;</code></pre>
+      </section>
 
-        </section>
+      <section>
+        <h2>Modifier et ajouter des valeurs</h2>
+        <pre><code class="language-php">&lt;?php
+$eleve['prenom'] = 'Marc';     // Modifie une valeur
+$eleve['notes'][] = 16;       // Ajoute une note à la fin
+?&gt;</code></pre>
+      </section>
 
-        <!-- Je dois ajouter mon contenu ici -->
+      <section>
+        <h2>Tableaux imbriqués</h2>
+        <p>Un tableau peut contenir d’autres tableaux :</p>
+        <pre><code class="language-php">&lt;?php
+$classe = [
+    [
+        'nom' => 'Doe',
+        'prenom' => 'Jean',
+        'notes' => [16, 14, 18]
+    ],
+    [
+        'nom' => 'Doe',
+        'prenom' => 'Jane',
+        'notes' => [12, 15, 17]
+    ]
+];
+
+echo $classe[1]['notes'][1]; // Affiche 15
+?&gt;</code></pre>
+      </section>
+
+      <section>
+        <h2>Déboguer un tableau</h2>
+        <p>
+          Pour afficher le contenu d’un tableau, on utilise
+          <code>print_r()</code> :
+        </p>
+        <pre><code class="language-php">&lt;?php
+print_r($eleve['notes']);
+?&gt;</code></pre>
+      </section>
     </main>
-
-
-</body>
-
+  </body>
 </html>
