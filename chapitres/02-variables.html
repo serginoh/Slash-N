@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02 - Variables</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>Chapitre 02 – Variables</h1>
+
+      <section>
+        <h2>Introduction</h2>
+        <p>
+          Maintenant que PHP est installé, on peut commencer à travailler avec
+          le langage. La manière la plus simple est de créer un fichier avec
+          l’extension <code>.php</code>. Cette extension permet au serveur de
+          comprendre qu’il s’agit d’un fichier PHP.
+        </p>
+      </section>
+
+      <section>
+        <h2>La balise PHP</h2>
+        <p>Tout code PHP doit être placé entre les balises suivantes :</p>
+        <pre><code class="language-php">&lt;?php
+// Du code PHP ici
+?&gt;</code></pre>
+        <p>
+          Tout ce qui se trouve à l’intérieur de ces balises doit être du PHP
+          valide. Ce qui est en dehors est affiché tel quel.
+        </p>
+      </section>
+
+      <section>
+        <h2>Les variables</h2>
+        <p>
+          Les variables permettent de stocker des valeurs en mémoire pour les
+          réutiliser plus tard. Une variable commence toujours par un
+          <code>$</code> suivi de son nom :
+        </p>
+        <pre><code class="language-php">&lt;?php
+$nom = 'Dupont';
+?&gt;</code></pre>
+        <p>
+          Il n’est pas nécessaire de déclarer le type de la variable à l’avance.
+          On peut utiliser des lettres, des chiffres et des underscores. Chaque
+          instruction se termine par un point-virgule <code>;</code>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Les types de base</h2>
+
+        <h3>Les entiers (integers)</h3>
+        <pre><code class="language-php">&lt;?php
+$note = 20;
+?&gt;</code></pre>
+
+        <h3>Les nombres décimaux (floats)</h3>
+        <pre><code class="language-php">&lt;?php
+$prix = 12.5;
+?&gt;</code></pre>
+
+        <h3>Les chaînes de caractères (strings)</h3>
+        <pre><code class="language-php">&lt;?php
+$prenom = "Sophie";
+?&gt;</code></pre>
+
+        <h3>Les booléens</h3>
+        <pre><code class="language-php">&lt;?php
+$majeur = true;
+$vaccine = false;
+?&gt;</code></pre>
+
+        <h3>Le type null</h3>
+        <p>
+          <code>null</code> représente une variable sans valeur. Si on affiche
+          une variable <code>null</code> avec <code>echo</code>, rien
+          n’apparaît.
+        </p>
+        <pre><code class="language-php">&lt;?php
+$vide = null;
+echo $vide; // n'affiche rien
+?&gt;</code></pre>
+      </section>
+
+      <section>
+        <h2>Afficher une variable avec echo</h2>
+        <p>
+          Pour afficher une variable, on utilise l’instruction
+          <code>echo</code> :
+        </p>
+        <pre><code class="language-php">&lt;?php
+$nom = 'Dupont';
+echo $nom;
+?&gt;</code></pre>
+        <p>
+          Pour forcer un saut de ligne dans la sortie, on peut utiliser
+          <code>\n</code>
+          (surtout utile dans le terminal).
+        </p>
+      </section>
+
+      <section>
+        <h2>Opérations arithmétiques</h2>
+        <p>
+          On peut faire des calculs avec les variables numériques. Pensez à
+          utiliser des parenthèses pour gérer la priorité des opérations :
+        </p>
+        <pre><code class="language-php">&lt;?php
+$note1 = 10;
+$note2 = 15;
+echo ($note1 + $note2) / 2; // Affiche 12.5
+?&gt;</code></pre>
+      </section>
+
+      <section>
+        <h2>La concaténation</h2>
+        <p>
+          Pour assembler des chaînes de caractères, on utilise le point
+          <code>.</code> (et non le <code>+</code>) :
+        </p>
+        <pre><code class="language-php">&lt;?php
+$prenom = 'Marc';
+$nom = 'Do';
+echo $prenom . ' ' . $nom; // Affiche "Marc Do"
+?&gt;</code></pre>
+      </section>
+
+      <section>
+        <h2>Guillemets simples vs guillemets doubles</h2>
+        <p>
+          Les guillemets doubles permettent d’interpréter les variables et les
+          caractères spéciaux (comme <code>\n</code>). Les guillemets simples
+          affichent le texte tel quel.
+        </p>
+        <pre><code class="language-php">&lt;?php
+$prenom = "Marc";
+echo "Bonjour $prenom"; // Affiche : Bonjour Marc
+echo 'Bonjour $prenom'; // Affiche : Bonjour $prenom
+?&gt;</code></pre>
+
+        <p>
+          Si on a besoin d’utiliser le même type de guillemet à l’intérieur de
+          la chaîne, on l’échappe avec un anti-slash :
+        </p>
+        <pre><code class="language-php">&lt;?php
+echo 'L\'apostrophe';
+echo "Il a dit \"bonjour\"";
+?&gt;</code></pre>
+      </section>
+    </main>
+  </body>
+</html>
