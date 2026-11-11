@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Page d'accueil</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cloudflare.com">
 </head>
 <body>
 <!-- Navbar -->
     <nav>
+        <h1>/n</h1>
+
         <a href="#">Accueil</a>
         
         <div id="menu">
@@ -75,7 +77,7 @@
 <!-- Partie présentation de PHP -->
     <section id="PARTIE-PRESENTATION-PHP">
         <article class="article">
-            <img src="images/Image 1 présentation php 1.avif" alt="Image1-Présentation-de-PHP">
+            <img src="images/Image 2 présentation php.avif" alt="Image1-Présentation-de-PHP">
             <div>
                 <h2>1. Qu'est-ce que PHP ?</h2>
                 <p>PHP (Hypertext Preprocessor) est un langage de programmation principalement utilisé pour le développement web côté serveur. Il permet de créer des pages web dynamiques, de traiter des données et de communiquer avec des bases de données. Contrairement au HTML et au CSS, PHP permet d'exécuter une logique de programmation avant que le contenu soit envoyé au navigateur.</p>
@@ -87,11 +89,11 @@
                 <h2>2. À quoi sert PHP ?</h2>
                 <p>PHP permet notamment de gérer les formulaires, les comptes utilisateurs, les sessions, les cookies et les échanges avec une base de données. Il peut également générer du contenu HTML automatiquement en fonction des actions ou des informations fournies par les visiteurs. C'est un outil particulièrement utile pour construire des sites web interactifs.</p>
             </div>
-            <img src="images/Image 2 présentation php.png" alt="Image1-Présentation-de-PHP">
+            <img src="images/Image 1 présentation php.avif" alt="Image1-Présentation-de-PHP">
         </article>
 
         <article class="article">
-            <img src="images/Image 1 présentation php 1.avif" alt="Image1-Présentation-de-PHP">
+            <img src="images/Image 3 présentation php.webp" alt="Image1-Présentation-de-PHP">
             <div>
                 <h2>3. Comment fonctionne PHP ?</h2>
                 <p>Le code PHP est exécuté directement sur le serveur web. Lorsqu'un visiteur accède à une page contenant du PHP, le serveur interprète le code et génère une réponse, généralement sous forme de HTML, qui est ensuite envoyée au navigateur. Le visiteur ne voit donc pas le code PHP lui-même, mais uniquement le résultat de son exécution.</p>
@@ -100,13 +102,89 @@
 
     </section>
 
+<!-- Nouveautés PHP -->
+    <section id="NOUVEAUTES-PHP">
 
-<!-- Choix du niveau d'aprentissage -->
-    <section id="CHOIX-NIVEAU-APRENTISSAGE"></section>
+        <h1>Quoi de neuf pour PHP?</h1>
+        
+        <div id="articleContainer">
+            <a href="https://accesto.com/reports/php-upgrade-blockers-2026/" class="article" target="_blank">
+                <img src="images/News article image 1.jpg" alt="">
+                <p class="titre-article">"What stops PHP teams from upgrading?"</p>
+            </a>
+            
+            <a href="https://php.watch/news/2026/12/php-critial-security-vulnerability-pre-annoucement" class="article" target="_blank">
+                <img src="images/News article image 2.jpg" alt="">
+                <p class="titre-article">"Critical vulnerability pre-announcement for all PHP versions"</p>
+            </a>
+            
+            <a href="https://php.watch/news/2025/12/php-81-eol" class="article" target="_blank">
+                <img src="images/News article image 3.jpg" alt="">
+                <p class="titre-article">"
+PHP 8.1 reached its End-of-Life"</p>
+            </a>
+            
+            <a href="https://cfitech.be/" class="article" target="_blank">
+                <img src="images/News article image 4.jpg" alt="">
+                <p class="titre-article">"Where can I learn PHP?"</p>
+            </a>
+            
+        </div>
+        
+    </section>
 
 
 <!-- FAQ -->
-    <section id="FAQ"></section>
+    <section id="FAQ">
+        <h1>FAQs</h1>
+        <div id="questions">
+            <article>Comment afficher une erreur lorsqu'une variable n'existe pas ?
+                <div class="reponse">
+                    On peut utiliser isset() pour vérifier si une variable est définie et n'est pas null.
+                </div>
+            </article>
+           
+            <article>Quelle est la différence entre PHP et HTML ?
+                <div class="reponse">
+                    HTML sert à structurer le contenu d'une page web, tandis que PHP permet de générer du contenu dynamique et d'effectuer des traitements côté serveur.
+                </div>
+            </article>
+           
+           
+            <article>PHP est-il encore utilisé aujourd'hui ?
+                <div class="reponse">
+                    Oui. PHP reste largement utilisé dans le développement web, notamment par des plateformes comme WordPress, Drupal et de nombreux sites web.
+                </div>
+            </article>
+           
+           
+            <article>Peut-on utiliser PHP avec MySQL ?
+                <div class="reponse">
+                    Oui. PHP peut communiquer avec une base de données MySQL pour enregistrer, récupérer, modifier et supprimer des informations.
+                </div>
+            </article>
+           
+           
+            <article>Quelle est la différence entre echo et print en PHP ?
+                <div class="reponse">
+                    echo et print permettent tous les deux d'afficher du texte. Cependant, echo peut afficher plusieurs valeurs et ne retourne aucune valeur, tandis que print retourne toujours 1.
+                </div>
+            </article>
+           
+           
+            <article>Comment concaténer deux chaînes de caractères en PHP ?
+                <div class="reponse">
+                    On utilise le point (.) pour assembler plusieurs chaînes de caractères.
+                    Exemple : <br> 
+                    $prenom = "Jean";<br>
+                    $nom = "Dupont";<br>
+                    echo $prenom . " " . $nom;
+                </div>
+            </article>
+           
+           
+        </div>
+    </section>
 
 
 <!-- Footer -->
