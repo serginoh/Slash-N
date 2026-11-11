@@ -103,7 +103,7 @@ nav {
     background-color: var(--bg-nav);
     transition: background-color 0.3s ease;
 
-    h1{
+    img{
         color: white;
         position: absolute;
         left: 2%;
