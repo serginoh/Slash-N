@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05 - Les Sessions en PHP</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>PHP : Les Sessions</h1>
+
+      <section>
+        <h2>1. Qu'est-ce qu'une session et pourquoi l'utiliser ?</h2>
+
+        <h3>La nature « sans état » (stateless) du protocole HTTP</h3>
+        <p>
+          Le protocole HTTP ne retient rien entre deux requêtes. Dès qu'un
+          utilisateur clique sur un lien ou change de page, le serveur web oublie
+          qui il est. Pour concevoir un espace membre, retenir un panier d'achat
+          ou afficher un message temporaire (<em>flash message</em>), le serveur
+          doit disposer d'un moyen fiable de lier plusieurs requêtes successives
+          à un même internaute.
+        </p>
+
+        <h3>Le rôle de la session</h3>
+        <p>
+          La session permet de conserver des données relatives à un utilisateur
+          d'une page à l'autre tout au long de sa navigation. Contrairement aux
+          cookies bruts, les données de session sont stockées exclusivement sur
+          le serveur. L'utilisateur ne peut donc ni lire, ni altérer, ni falsifier
+          les données stockées (par exemple, un statut administrateur ou un
+          solde).
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Comparatif : Session vs Cookie</h2>
+        <p>
+          Pour bien comprendre l'architecture web, voici la distinction
+          fondamentale entre un Cookie et une Session :
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Critère</th>
+              <th>Cookie (<code>$_COOKIE</code>)</th>
+              <th>Session (<code>$_SESSION</code>)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lieu de stockage</td>
+              <td>Sur le poste client (navigateur)</td>
+              <td>Sur le disque ou la mémoire du serveur</td>
+            </tr>
+            <tr>
+              <td>Sécurité &amp; intégrité</td>
+              <td>Faible : modifiable et consultable par l'utilisateur (ou via scripts)</td>
+              <td>Élevée : stocké côté serveur, inaccessible au visiteur</td>
+            </tr>
+            <tr>
+              <td>Volume de données</td>
+              <td>Limité à environ 4 Ko par domaine</td>
+              <td>Virtuellement illimité (selon configuration serveur)</td>
+            </tr>
+            <tr>
+              <td>Cas d'usage type</td>
+              <td>Mémoriser un choix de thème sombre, consentement RGPD</td>
+              <td>Connexion utilisateur (auth), panier d'achats, permissions</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          <strong>Le lien indissociable entre cookie et session :</strong> Pour
+          associer un visiteur à son fichier de session côté serveur, PHP dépose
+          automatiquement sur le navigateur un cookie unique appelé
+          <code>PHPSESSID</code>. Ce cookie ne contient aucune donnée
+          personnelle, seulement un identifiant aléatoire (ex.
+          <code>'a1b2c3d4...'</code>). À chaque requête, le navigateur transmet
+          ce token, et PHP recharge le fichier de session correspondant.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Démarrer et manipuler une session</h2>
+
+        <h3>Règle d'or : session_start() avant tout envoi</h3>
+        <p>
+          La fonction <code>session_start()</code> initialise ou reprend une
+          session existante. Elle envoie des en-têtes HTTP (<code>Set-Cookie</code>).
+          Elle doit donc impérativement être appelée avant tout affichage HTML,
+          espace ou saut de ligne, sous peine de déclencher l'erreur classique
+          <em>Headers already sent</em>.
+        </p>
+
+        <h3>Écrire, lire et vérifier des données dans $_SESSION</h3>
+        <p>
+          Une fois la session ouverte, la superglobale associative
+          <code>$_SESSION</code> s'utilise exactement comme un tableau PHP
+          standard :
+        </p>
+        <pre><code class="language-php">&lt;?php
+// Toujours démarrer la session en premier
+session_start();
+
+// 1. Écriture de données simples et complexes
+$_SESSION['user_id'] = 42;
+$_SESSION['nom'] = 'Dupont';
+$_SESSION['role'] = 'admin';
+$_SESSION['panier'] = ['article_id' =&gt; 12, 'quantite' =&gt; 2];
+
+// 2. Vérification et lecture
+if (isset($_SESSION['user_id'])) {
+    echo "Bienvenue, " . htmlspecialchars($_SESSION['nom']) . " !";
+} else {
+    echo "Vous n'êtes pas connecté.";
+}
+?&gt;</code></pre>
+
+        <h3>Supprimer une variable ou détruire la session</h3>
+        <p>
+          Pour déconnecter un utilisateur ou vider le panier, plusieurs
+          approches existent selon le besoin :
+        </p>
+        <pre><code class="language-php">&lt;?php
+session_start();
+
+// Supprimer UNE seule variable spécifique
+unset($_SESSION['panier']);
+
+// Déconnexion complète et propre :
+// 1. Vider le tableau en mémoire
+$_SESSION = [];
+
+// 2. Détruire le cookie de session sur le navigateur
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
+
+// 3. Supprimer le fichier de stockage sur le serveur
+session_destroy();
+?&gt;</code></pre>
+      </section>
+
+      <section>
+        <h2>4. Sécurité renforcée des sessions en PHP 8.x</h2>
+        <p>
+          Dans les versions modernes de PHP, la sécurisation des sessions ne doit
+          pas être laissée aux réglages par défaut. Voici les deux impératifs de
+          sécurité :
+        </p>
+
+        <h3>1. Démarrage sécurisé avec options (PHP 7.3+ / 8.x)</h3>
+        <p>
+          Plutôt que de modifier <code>php.ini</code>, PHP permet de passer un
+          tableau d'options directement dans <code>session_start()</code>. Cela
+          bloque les attaques XSS (vol de session par script JavaScript) et
+          protège contre le vol de session lors de requêtes inter-sites (CSRF) :
+        </p>
+        <pre><code class="language-php">&lt;?php
+session_start([
+    'cookie_httponly' =&gt; true,      // Empêche JavaScript de lire le cookie (anti-XSS)
+    'cookie_secure'   =&gt; true,      // Transmet le cookie uniquement via HTTPS (en prod)
+    'cookie_samesite' =&gt; 'Strict',  // Empêche l'envoi du cookie depuis un site tiers (anti-CSRF)
+    'use_only_cookies'=&gt; true,      // Interdit le passage de session_id dans l'URL
+    'cookie_lifetime' =&gt; 0          // Expire à la fermeture du navigateur
+]);
+?&gt;</code></pre>
+
+        <h3>2. Régénération de l'ID contre la fixation de session</h3>
+        <p>
+          Une attaque courante appelée <em>Session Fixation</em> consiste pour un
+          pirate à imposer un ID de session à une victime avant qu'elle ne
+          s'authentifie. Dès qu'un utilisateur valide ses identifiants avec
+          succès, vous devez impérativement régénérer son identifiant de
+          session :
+        </p>
+        <pre><code class="language-php">&lt;?php
+// Lors de la validation réussie des identifiants (login) :
+session_regenerate_id(true); // 'true' supprime immédiatement l'ancien fichier de session
+$_SESSION['user_id'] = $utilisateur['id'];
+?&gt;</code></pre>
+      </section>
+
+      <section>
+        <h2>5. Cas pratique : Authentification et protection de page</h2>
+        <p>
+          Voici l'enchaînement standard d'un système de connexion sécurisé
+          combinant les inclusions et les sessions :
+        </p>
+
+        <h3>Fichier login.php (Connexion)</h3>
+        <pre><code class="language-php">&lt;?php
+session_start(['cookie_httponly' =&gt; true, 'cookie_samesite' =&gt; 'Strict']);
+
+$erreur = null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $login = $_POST['username'] ?? '';
+    $mdp   = $_POST['password'] ?? '';
+
+    // Vérification simplifiée (à coupler avec password_verify en production)
+    if ($login === 'admin' &amp;&amp; $mdp === 'secret123') {
+        session_regenerate_id(true);
+        $_SESSION['user'] = ['username' =&gt; 'admin', 'role' =&gt; 'administrator'];
+        header('Location: admin.php');
+        exit;
+    } else {
+        $erreur = "Identifiants invalides.";
+    }
+}
+?&gt;
+&lt;!-- Formulaire de connexion HTML classique --&gt;</code></pre>
+
+        <h3>Fichier admin.php (Page protégée)</h3>
+        <pre><code class="language-php">&lt;?php
+session_start();
+
+// Vérifier si l'utilisateur est authentifié
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit; // Toujours stopper l'exécution après une redirection
+}
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+<head>
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Zone Privée&lt;/title&gt;
+</head>
+<body>
+    &lt;h1&gt;Tableau de bord&lt;/h1&gt;
+    &lt;p&gt;Bonjour &lt;?= htmlspecialchars($_SESSION['user']['username']) ?&gt;, vous êtes connecté.&lt;/p&gt;
+    &lt;p&gt;&lt;a href="logout.php"&gt;Se déconnecter&lt;/a&gt;&lt;/p&gt;
+</body>
+&lt;/html&gt;</code></pre>
+      </section>
+    </main>
+  </body>
+</html>
