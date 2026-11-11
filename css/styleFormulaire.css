@@ -1,0 +1,407 @@
+* {
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+:root {
+    color-scheme: light;
+
+    /* Général */
+    --bg-body: #ffffff;
+    --text-body: #222222;
+    --bg-nav: #100c1d;
+    --text-nav: #ffffff;
+    --bg-footer: #100c1d;
+    --text-footer: #ffffff;
+
+    /* Présentation PHP */
+    --bg-presentation: linear-gradient(315deg, #4f003b, #42004f 51%, #060042);
+    --text-presentation: #ffffff;
+    --heading-presentation: #00ffff;
+
+    /* Nouveautés PHP*/
+    --bg-news: radial-gradient(#f1f1f1, #bbbbbb);
+    --text-news: #451f55;
+
+    /* FAQ */
+    --bg-faq: linear-gradient(#290044, #451f55);
+    --bg-faq-item: #f5f5f5;
+    --text-faq-item: #290044;
+    --text-faq-answer: #9e5b9b;
+    --border-faq: rgba(56, 2, 87, .3);
+
+    /* Boutons */
+    --accent: #451f55;
+    --accent-hover: #6e3288;
+
+    /* Switch */
+    --color-border: #222222;
+    --switch-track: #591d91;
+    --switch-knob: #ffffff;
+    --switch-icon: #e5a900;
+    --bg-btn-image: none;
+
+    /* Polices */
+    --font-title: 'Inter', sans-serif;
+    --font-text: 'Open Sans', sans-serif;
+    --font-code: 'Fira Code', monospace;
+}
+
+body.dark-mode {
+    color-scheme: dark;
+
+    /* Général */
+    --bg-body: #12121a;
+    --text-body: #e4e1eb;
+    --bg-nav: #090812;
+    --text-nav: #ffffff;
+    --bg-footer: #090812;
+    --text-footer: #b8b3c5;
+
+    /* Présentation PHP */
+    --bg-presentation: linear-gradient(315deg, #170d20, #21102d 51%, #0d1024);
+    --text-presentation: #e4e1eb;
+    --heading-presentation: #c084fc;
+
+    /* Nouveautés */
+    --bg-news: radial-gradient(#292333, #17141f);
+    --text-news: #d8b4fe;
+
+    /* FAQ */
+    --bg-faq: linear-gradient(#100b18, #21102d);
+    --bg-faq-item: #292333;
+    --text-faq-item: #eee7f5;
+    --text-faq-answer: #c4a0e8;
+    --border-faq: rgba(196, 160, 232, .3);
+
+    /* Boutons */
+    --accent: #7e3fa0;
+    --accent-hover: #a56ac5;
+
+    /* Bouton dark mode */
+    --color-border: #a78bfa;
+    --switch-track: #25213a;
+    --switch-knob: #ffffff;
+    --switch-icon: #e5c7ff;
+    --bg-btn-image: url("../images/1230968-ciel-etoile-gratuit-photo.jpeg");
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-body);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 3dvh 8dvh;
+    background-color: var(--bg-nav);
+    transition: background-color 0.3s ease;
+
+    h1 {
+        color: white;
+        position: absolute;
+        left: 2%;
+        font-size: 2.5em;
+    }
+
+    #menu {
+        position: relative;
+        padding-bottom: 10px;
+        margin-bottom: -10px;
+    }
+
+    #menuChapitres {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        left: -120%;
+        top: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        border: 1px solid #6e3288;
+        z-index: 10;
+        transform: translateY(-10px);
+        border-radius: 1em;
+        background: linear-gradient(315deg, rgb(23, 0, 58) 0%, rgb(38, 0, 44) 51%, rgb(26, 0, 37) 100%);
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease,
+            visibility 0.25s;
+
+        a {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 1s steps(20, end);
+            white-space: nowrap;
+            padding-bottom: 2px;
+            border-bottom: 2px solid gray;
+        }
+    }
+
+    #menu:hover #menuChapitres {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #menu:hover #menuChapitres a {
+        clip-path: inset(0 0 0 0);
+    }
+
+    a {
+        margin-right: 7dvh;
+        text-decoration: none;
+        font-size: 1.25rem;
+        color: var(--text-body);
+        transition: color 0.3s ease;
+        color: white;
+    }
+}
+
+.switch {
+    display: flex;
+    align-items: center;
+    width: 10dvh;
+    height: 3.333dvh;
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: 1.667dvh;
+    background-color: var(--colo-switch);
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+
+    .btn {
+        /* Gestion de l'arrière-plan du bouton (image ou uni) */
+        background-image: var(--bg-btn-image);
+        background-size: cover;
+        background-position: center;
+        background-color: white;
+
+        width: 3.111dvh;
+        height: 3.111dvh;
+        border-radius: 50%;
+        position: absolute;
+        top: 0dvh;
+        left: 0.111dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, background-color 0.3s, background-image 0.3s;
+
+        i {
+            color: var(--color-btn);
+            font-size: 1.8dvh;
+            transition: color 0.3s;
+        }
+    }
+}
+
+/* Déplacement fluide du bouton vers la droite en mode sombre */
+body.dark-mode .switch .btn {
+    transform: translateX(6.444dvh);
+}
+
+
+/* FORMULAIRE */
+.inscriptionContainer {
+    /* background-color: red; */
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background: var(--bg-presentation);
+    transition: background 0.3s ease;
+}
+
+/* Carte */
+.inscriptionCard {
+    /* background-color: blue; */
+    width: 100%;
+    max-width: 480px;
+    padding: 40px;
+    background: var(--bg-body);
+    color: var(--text-body);
+    border: 1px solid var(--border-faq);
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* En-tête */
+.inscriptionEnTete {
+    text-align: center;
+    margin-bottom: 30px;
+    h2 {
+        font-family: var(--font-title);
+        font-size: 26px;
+        margin-bottom: 10px;
+        color: var(--heading-presentation);
+    }
+    p {
+        font-family: var(--font-text);
+        font-size: 14px;
+        opacity: 0.75;
+    }
+}
+
+.inscriptionLogo {
+    display: inline-block;
+    width: 30%;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    font-family: var(--font-code);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* Champs du formulaire */
+.inscriptionInfos {
+    /* background-color: green; */
+    margin-bottom: 20px;
+    label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font-text);
+        }
+}
+
+    .inscriptionInfos input,
+    .inscriptionInfos select {
+        width: 100%;
+        padding: 14px 15px;
+        border: 1px solid var(--border-faq);
+        border-radius: 10px;
+        background: var(--bg-body);
+        color: var(--text-body);
+        font-size: 14px;
+        outline: none;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .inscriptionInfos input:focus,
+    .inscriptionInfos select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(110, 50, 136, 0.15);
+    }
+
+        .inscriptionInfos input::placeholder {
+            color: var(--text-body);
+            opacity: 0.45;
+        }
+
+/* Bouton d'inscription */
+.inscriptionBouton {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+    .inscriptionBouton:hover {
+        background: var(--accent-hover);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+/* Connexion */
+.inscriptionConnexion {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    opacity: 0.8;
+    a {
+        color: var(--accent);
+        font-weight: bold;
+        text-decoration: none;
+    }
+    a:hover {
+        color: var(--accent-hover);
+        text-decoration: underline;
+    }
+}
+
+
+
+
+
+/* FOOTER */
+footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 10dvh;
+    background-color: var(--bg-footer);
+    color: var(--text-footer);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    img {
+        max-height: 100%;
+        height: auto;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+}
+
+
+
+
+/* PARTIE POUR DARKMODE */
+/* TRANSITION GÉNÉRALE */
+body {
+    background-color: var(--bg-body);
+    color: var(--text-body);
+    transition: background-color .3s ease, color .3s ease;
+}
+
+/* NAVBAR */
+nav {
+    background-color: var(--bg-nav);
+}
+
+nav a {
+    color: var(--text-nav);
+}
+
+/* SWITCH */
+.switch {
+    background-color: var(--switch-track);
+    border-color: var(--color-border);
+}
+
+.switch .btn {
+    background-color: var(--switch-knob);
+    background-image: var(--bg-btn-image);
+}
+
+.switch .btn i {
+    color: var(--switch-icon);
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--bg-footer);
+    color: var(--text-footer);
+}

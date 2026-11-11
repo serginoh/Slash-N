@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Inscription</title>
+    <link rel="stylesheet" href="css/styleFormulaire.css">
+</head>
+
+    <!-- Navbar -->
+    <nav>
+        <h1>/n</h1>
+
+        <a href="index.html">Accueil</a>
+        
+        <div id="menu">
+            <a href="#">Chapitres</a>
+
+            <nav id="menuChapitres">
+                    <a href="#installation">Installer Mac/Windows/Linux</a>
+                    <a href="#variables">Variables</a>
+                    <a href="#tableaux">Les tableaux</a>
+                    <a href="#conditions">Conditions</a>
+                    <a href="#boucles">Boucles</a>
+                    <a href="#fonctions">Fonctions</a>
+                    <a href="#fonctions-utilisateurs">Fonctions utilisateurs</a>
+                    <a href="#require-include">Require & Include</a>
+                    <a href="#php-html">Lien entre PHP et HTML</a>
+                    <a href="#formulaires">Traitement formulaires</a>
+                    <a href="#dates">Dates</a>
+                    <a href="#lecture-fichiers">Lecture des fichiers</a>
+                    <a href="#ecriture-fichiers">Écriture des fichiers</a>
+                    <a href="#cookies">Les cookies</a>
+                    <a href="#session">La session</a>
+            </nav>
+        </div>
+
+        <a href="#">Contact</a>
+        <a href="inscription.html">Inscription</a>
+         
+        <div class="switch">
+            <div class="btn">
+                <!-- L'icône change dynamiquement via le JavaScript -->
+            <i class="fa-regular fa-sun"></i>
+            </div>
+        </div>
+    </nav>
+
+<!-- Formulaire -->
+<section class="inscriptionContainer">
+
+    <div class="inscriptionCard">
+
+        <div class="inscriptionEnTete">
+            <span class="inscriptionLogo">&lt;?php&gt;</span>
+
+            <p>Commence ton aventure dans le développement PHP !</p>
+        </div>
+
+        <form action="">
+            <div class="inscriptionInfos">
+                <label for="name">Nom complet</label>
+                <input type="text" id="name" name="fullname"
+                    placeholder="Nom et prénom">
+            </div>
+
+            <div class="inscriptionInfos">
+                <label for="email">Adresse e-mail</label>
+                <input type="email" id="email" name="email"
+                    placeholder="Email">
+            </div>
+
+            <div class="inscriptionInfos">
+                <label for="niveau">Niveau en programmation</label>
+
+                <select id="niveau" name="niveau">
+                    <option value="" disabled selected>
+                        Choisis ton niveau
+                    </option>
+                    <option value="debutant">Débutant</option>
+                    <option value="intermediaire">Intermédiaire</option>
+                    <option value="avance">Avancé</option>
+                </select>
+            </div>
+
+            <div class="inscriptionInfos">
+                <label for="motDePasse">Mot de passe</label>
+                <input type="motDePasse" id="motDePasse" name="motDePasse"
+                    placeholder="Mot de passe">
+            </div>
+
+            <div class="inscriptionInfos">
+                <label for="confirm">Confirmer le mot de passe</label>
+                <input type="motDePasse" id="confirmation"
+                    name="confirmationMotDePasse"
+                    placeholder="Confirmer le mot de passe">
+            </div>
+
+            <button type="submit" class="inscriptionBouton">
+                Créer mon compte
+            </button>
+
+        </form>
+
+        <div class="inscriptionConnexion">
+            J'ai déjà un compte - 
+            <a href="connexion.html">Connexion</a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Footer -->
+    <footer>
+        <img src="images/logo.png" alt="">
+        <p>© Ce site a été développé dans un cadre d'apprentissage</p>
+    </footer>
+
+
+
+    <script src="js/dark-mode.js"></script>
+</body>
+</html>

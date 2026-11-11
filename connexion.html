@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'connexion</title>
+    <link rel="stylesheet" href="css/styleConnexion.css">
+</head>
+
+    <!-- Navbar -->
+    <nav>
+        <h1>/n</h1>
+
+        <a href="index.html">Accueil</a>
+        
+        <div id="menu">
+            <a href="#">Chapitres</a>
+
+            <nav id="menuChapitres">
+                    <a href="#installation">Installer Mac/Windows/Linux</a>
+                    <a href="#variables">Variables</a>
+                    <a href="#tableaux">Les tableaux</a>
+                    <a href="#conditions">Conditions</a>
+                    <a href="#boucles">Boucles</a>
+                    <a href="#fonctions">Fonctions</a>
+                    <a href="#fonctions-utilisateurs">Fonctions utilisateurs</a>
+                    <a href="#require-include">Require & Include</a>
+                    <a href="#php-html">Lien entre PHP et HTML</a>
+                    <a href="#formulaires">Traitement formulaires</a>
+                    <a href="#dates">Dates</a>
+                    <a href="#lecture-fichiers">Lecture des fichiers</a>
+                    <a href="#ecriture-fichiers">Écriture des fichiers</a>
+                    <a href="#cookies">Les cookies</a>
+                    <a href="#session">La session</a>
+            </nav>
+        </div>
+
+        <a href="#">Contact</a>
+        <a href="inscription.html">Inscription</a>
+         
+        <div class="switch">
+            <div class="btn">
+                <!-- L'icône change dynamiquement via le JavaScript -->
+            <i class="fa-regular fa-sun"></i>
+            </div>
+        </div>
+    </nav>
+
+
+<!-- FORMULAIRE -->
+<section class="connexionContainer">
+
+    <div class="connexionCard">
+
+        <div class="connexionEnTete">
+            <span class="connexionLogo">&lt;?php&gt;</span>
+        </div>
+
+        <form action="">
+
+            <div class="connexionInfos">
+                <label for="email">Adresse e-mail</label>
+                <input type="email" id="email" name="email"
+                    placeholder="Email">
+            </div>
+
+            <div class="connexionInfos">
+                <label for="motDePasse">Mot de passe</label>
+                <input type="motDePasse" id="motDePasse" name="motDePasse"
+                    placeholder="Mot de passe">
+            </div>
+
+            <button type="submit" class="connexionBouton">
+                Connexion
+            </button>
+
+        </form>
+        
+        <div class="connexionInscription">
+            <a href="inscription.html">INSCRIPTION</a>
+        </div>
+    </div>
+        
+</section>
+
+
+<!-- Footer -->
+    <footer>
+        <img src="images/logo.png" alt="">
+        <p>© Ce site a été développé dans un cadre d'apprentissage</p>
+    </footer>
+
+
+
+    <script src="js/dark-mode.js"></script>
+</body>
+</html>
