@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page d'accueil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cloudflare.com">
 </head>
@@ -62,12 +65,12 @@
         
         <div id="principal">
             <h2>/n</h2>
-            <h1>Bienvenue!</h1>
+            <h1>Apprenez le PHP, pas à pas.</h1>
             <h3>Manuel PHP gratuit en ligne</h3>
-            <h4>Inscrivez votre adresse e-mail ou connectez-vous avec un compte Google</h4>
+            <h4>Découvrez les bases du PHP, comprenez son fonctionnement et apprenez à créer vos premières applications web.</h4>
             <div>
                 <input type="email" placeholder="Email">
-                <button>Je me lance!</button>
+                <button>Recevoir newsletters</button>
             </div>
             <a href="https://fr.wikipedia.org/wiki/Fichier:Google_%22G%22_logo.svg#/media/Fichier:Google_Favicon_2025.svg"><img src="images/Google_Favicon_2025.svg.webp" alt="Bouton-connexion-Google"></a>
         </div>
@@ -175,10 +178,12 @@ PHP 8.1 reached its End-of-Life"</p>
             <article>Comment concaténer deux chaînes de caractères en PHP ?
                 <div class="reponse">
                     On utilise le point (.) pour assembler plusieurs chaînes de caractères.
-                    Exemple : <br> 
-                    $prenom = "Jean";<br>
-                    $nom = "Dupont";<br>
-                    echo $prenom . " " . $nom;
+                    <div id="reponseCode">
+                        Exemple : <br> 
+                        $prenom = "Jean";<br>
+                        $nom = "Dupont";<br>
+                        echo $prenom . " " . $nom;
+                    </div>
                 </div>
             </article>
            
