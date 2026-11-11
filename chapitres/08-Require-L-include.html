@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03 - Require & Include</title>
+</head>
+
+<body>
+    <main>
+        <h1>PHP : REQUIRE &amp; INCLUDE</h1>
+        <p>
+            Fiche pratique : modularité, gabarits de pages, gestion des erreurs fatales
+            et inclusion unique.
+        </p>
+
+        <section>
+            <h2>1. Pourquoi découper son code ?</h2>
+
+            <h3>La problématique du copier-coller</h3>
+            <p>
+                Sur un site de plusieurs dizaines de pages, l'en-tête (balise
+                <code>&lt;head&gt;</code>, navigation), le pied de page et les
+                configurations (connexion à la base de données, fonctions utilitaires)
+                sont identiques. Si l'on copie-colle ce code dans chaque fichier, la
+                moindre modification d'un lien dans le menu oblige à éditer l'ensemble
+                des fichiers du site à la main. C'est une source d'erreurs majeure.
+            </p>
+
+            <h3>Le rôle des inclusions</h3>
+            <p>
+                PHP propose des structures de contrôle permettant d'insérer le contenu
+                d'un fichier source dans un autre lors de l'exécution :
+                <code>include</code>, <code>require</code>, <code>include_once</code>
+                et <code>require_once</code>. Le serveur lit le fichier cible,
+                interprète son éventuel code PHP et injecte son rendu à l'endroit exact
+                de l'appel.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Comparatif : include vs require vs *_once</h2>
+            <p>
+                Le tableau suivant résume le comportement de chaque directive en cas de
+                fichier introuvable et selon la fréquence d'inclusion souhaitée :
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Instruction</th>
+                        <th>Comportement si absent</th>
+                        <th>Arrêt du script ?</th>
+                        <th>Cas d'usage recommandé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>include</code></td>
+                        <td>Émet un avertissement (Warning : <code>E_WARNING</code>)</td>
+                        <td>Non (le script continue)</td>
+                        <td>Éléments secondaires non vitaux (bannière publicitaire, widget facultatif).</td>
+                    </tr>
+                    <tr>
+                        <td><code>require</code></td>
+                        <td>Émet une erreur fatale (Fatal Error : <code>E_COMPILE_ERROR</code>)</td>
+                        <td>Oui (arrêt immédiat)</td>
+                        <td>Fichiers critiques indispensables (configuration, en-tête principal, sécurité).</td>
+                    </tr>
+                    <tr>
+                        <td><code>include_once</code></td>
+                        <td>Avertissement (Warning). Vérifie si déjà chargé.</td>
+                        <td>Non</td>
+                        <td>Gabarits secondaires réutilisables sans risque de doublon d'affichage.</td>
+                    </tr>
+                    <tr>
+                        <td><code>require_once</code></td>
+                        <td>Erreur fatale. Vérifie si déjà inclus dans le script.</td>
+                        <td>Oui</td>
+                        <td>Déclarations de fonctions, classes ou configurations (évite les erreurs de redéfinition).
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <strong>Règle pratique :</strong> Par défaut, privilégiez toujours
+                <code>require</code> pour vos fragments de pages (un design cassé sans
+                header ne doit pas continuer à s'afficher) et <code>require_once</code>
+                pour vos fichiers déclarant des fonctions ou des classes.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Syntaxe et gestion des chemins</h2>
+
+            <h3>Syntaxe formelle</h3>
+            <p>
+                Bien qu'on puisse les écrire avec des parenthèses comme des fonctions
+                classiques, <code>include</code> et <code>require</code> sont des
+                structures de langage. L'usage sans parenthèses est la convention la
+                plus courante :
+            </p>
+            <pre><code class="language-php">&lt;?php
+// Syntaxe recommandée (sans parenthèses)
+require 'header.php';
+
+// Syntaxe tolérée (avec parenthèses)
+include('footer.php');
+?&gt;</code></pre>
+
+            <h3>Sécuriser les chemins avec __DIR__</h3>
+            <p>
+                L'erreur classique consiste à utiliser des chemins relatifs simples
+                (<code>'header.php'</code> ou <code>'../header.php'</code>). Ces
+                chemins sont calculés par rapport au dossier de travail actuel de PHP,
+                ce qui provoque des bugs dès qu'un script est appelé depuis un
+                sous-dossier. La solution robuste consiste à utiliser la constante
+                magique <code>__DIR__</code> :
+            </p>
+            <pre><code class="language-php">&lt;?php
+// __DIR__ renvoie le chemin absolu du dossier contenant le fichier actuel
+require_once __DIR__ . '/config/database.php';
+require __DIR__ . '/layout/header.php';
+?&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>4. Cas pratique : modularisation d'un site web</h2>
+            <p>Voici l'organisation recommandée pour découper un site standard :</p>
+            <pre><code>mon-site/
+├── layout/
+│   ├── header.php       # En-tête HTML commun et menu de navigation
+│   └── footer.php       # Pied de page HTML et scripts JavaScript
+├── contact.php          # Page de contact
+└── index.php            # Page d'accueil</code></pre>
+
+            <h3>Le fichier layout/header.php</h3>
+            <p>
+                Ce fichier contient le début du balisage HTML. Il peut également
+                exploiter des variables dynamiques définies dans la page appelante,
+                comme le titre de la page :
+            </p>
+            <pre><code class="language-php">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;&lt;?= $titre ?? 'Mon Site Web' ?&gt;&lt;/title&gt;
+    &lt;link rel="stylesheet" href="/assets/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;a href="index.php"&gt;Accueil&lt;/a&gt;
+            &lt;a href="contact.php"&gt;Contact&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;</code></pre>
+
+            <h3>Le fichier layout/footer.php</h3>
+            <p>
+                Ce fichier ferme les balises principales et ajoute les crédits ainsi que
+                la date dynamique générée par PHP :
+            </p>
+            <pre><code class="language-php">    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; &lt;?= date('Y') ?&gt; - Tous droits réservés.&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+            <h3>La page principale index.php</h3>
+            <p>
+                La page d'accueil définit ses paramètres propres, puis assemble les
+                fragments avec <code>require</code> :
+            </p>
+            <pre><code class="language-php">&lt;?php
+$titre = "Accueil - Bienvenue";
+require __DIR__ . '/layout/header.php';
+?&gt;
+
+&lt;h1&gt;Bienvenue sur notre plateforme&lt;/h1&gt;
+&lt;p&gt;Ce contenu est propre à la page d'accueil. L'en-tête et le pied de page sont gérés de façon centralisée.&lt;/p&gt;
+
+&lt;?php
+require __DIR__ . '/layout/footer.php';
+?&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>5. Le piège classique : redéclaration de fonction</h2>
+            <p>
+                En PHP, il est strictement interdit de déclarer deux fonctions
+                portant le même nom. Si vous utilisez <code>require</code> pour
+                importer un fichier contenant des fonctions personnalisées, et que ce
+                fichier se retrouve appelé deux fois (directement ou indirectement par
+                un autre module), PHP déclenche une erreur fatale
+                <em>Cannot redeclare function</em>.
+            </p>
+            <p>
+                C'est la raison d'être de <code>require_once</code> : PHP mémorise les
+                fichiers déjà analysés et ignore l'appel s'il a déjà été traité.
+            </p>
+            <pre><code class="language-php">&lt;?php
+// functions.php
+function saluer(string $nom): string {
+    return "Bonjour " . $nom;
+}
+
+// index.php
+require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/functions.php'; // Ignoré sans générer d'erreur fatale
+
+echo saluer("Alice");
+?&gt;</code></pre>
+        </section>
+    </main>
+</body>
+
+</html>
