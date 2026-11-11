@@ -233,9 +233,13 @@ body.dark-mode .switch .btn {
             width: 12em;
             height: 3em;
             border: none;
-            background-color: #451f55;
+            background-color: var(--accent);
             position: relative;
             color: white;
+            a{
+                text-decoration: none;
+                color: white;
+            }
         }
 
         #LogoConnexionGoogle{
@@ -243,7 +247,7 @@ body.dark-mode .switch .btn {
             height: 3.5em;
             background-color: rgb(231, 231, 231);
             border-radius: 50%;
-            border: 3px solid #451f55;
+            border: 3px ;
             position: absolute;
             right: 11.5em;
         }
@@ -297,7 +301,6 @@ body.dark-mode .switch .btn {
                 height: 3em;
                 border: none;
                 border-radius: .5em;
-                background-color: #451f55;
                 position: relative;
                 color: white;
             }
@@ -319,7 +322,6 @@ body.dark-mode .switch .btn {
 
 #PARTIE-PRESENTATION-PHP {
     height: 200dvh;
-    background-color: #451f55;
     background: linear-gradient(315deg, rgba(79, 0, 59, 1) 0%, rgba(66, 0, 79, 1) 51%, rgba(6, 0, 66, 1) 100%);
     padding: 2em;
     display: flex;
@@ -355,7 +357,7 @@ body.dark-mode .switch .btn {
     background: radial-gradient(rgb(241, 241, 241), rgb(187, 187, 187));
     /* background-color: red; */
     h1{
-        color: #451f55;
+        color: var(--accent);
         font-size: 3rem;
         margin-bottom: 2em;
         font-family: var(--font-title);
@@ -453,7 +455,7 @@ body.dark-mode .switch .btn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient( #290044, #451f55);
+    background: linear-gradient( var(--accent), #451f55);
     color: white;
     padding: 3%;
     
