@@ -1,42 +1,91 @@
 * {
-    padding: 0%;
-    margin: 0%;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 :root {
-    /* ── MODE CLAIR (PAR DÉFAUT) ── */
-    --color-border: black;
-    --color-btn: ;
-    /* Couleur jaune pour le soleil */
-    --colo-switch: rgb(89, 29, 145);
-    /* Fond du switch blanc */
-    --bg-nav: #451f55;
-    --bg-body: white;
-    --text-body: black;
-    --bg-footer: black;
-    --text-footer: white;
+    color-scheme: light;
 
+    /* Général */
+    --bg-body: #ffffff;
+    --text-body: #222222;
+    --bg-nav: #100c1d;
+    --text-nav: #ffffff;
+    --bg-footer: #100c1d;
+    --text-footer: #ffffff;
+
+    /* Présentation PHP */
+    --bg-presentation: linear-gradient(315deg, #4f003b, #42004f 51%, #060042);
+    --text-presentation: #ffffff;
+    --heading-presentation: #00ffff;
+
+    /* Nouveautés PHP */
+    --bg-news: radial-gradient(#f1f1f1, #bbbbbb);
+    --text-news: #451f55;
+
+    /* FAQ */
+    --bg-faq: linear-gradient(#290044, #451f55);
+    --bg-faq-item: #f5f5f5;
+    --text-faq-item: #290044;
+    --text-faq-answer: #9e5b9b;
+    --border-faq: rgba(56, 2, 87, .3);
+
+    /* Boutons */
+    --accent: #451f55;
+    --accent-hover: #6e3288;
+
+    /* Switch */
+    --color-border: #222222;
+    --switch-track: #591d91;
+    --switch-knob: #ffffff;
+    --switch-icon: #e5a900;
     --bg-btn-image: none;
-    /* Pas d'image de fond en mode clair */
+
+    /* Polices */
+    --font-title: 'Inter', sans-serif;
+    --font-text: 'Open Sans', sans-serif;
+    --font-code: 'Fira Code', monospace;
 }
 
-/* Redéfinition des couleurs lorsque le mode sombre est actif */
 body.dark-mode {
-    /* ── MODE SOMBRE ── */
-    --color-border: #ffffff;
-    --color-btn: #f1c40f;
-    /* Couleur pour la lune */
-    --colo-switch: #1e2939;
-    --bg-nav: #111827;
-    --bg-body: #121212;
-    --text-body: #f8f9fa;
-    --bg-footer: #1f1f1f;
-    --text-footer: #a0a0a0;
+    color-scheme: dark;
 
-    /* Intégration de la photo du ciel étoilé dans le bouton rond */
-    --bg-btn-image: url(../images/1230968-ciel-etoile-gratuit-photo.jpeg);
+    /* Général */
+    --bg-body: #12121a;
+    --text-body: #e4e1eb;
+    --bg-nav: #090812;
+    --text-nav: #ffffff;
+    --bg-footer: #090812;
+    --text-footer: #b8b3c5;
+
+    /* Présentation PHP */
+    --bg-presentation: linear-gradient(315deg, #170d20, #21102d 51%, #0d1024);
+    --text-presentation: #e4e1eb;
+    --heading-presentation: #c084fc;
+
+    /* Nouveautés */
+    --bg-news: radial-gradient(#292333, #17141f);
+    --text-news: #d8b4fe;
+
+    /* FAQ */
+    --bg-faq: linear-gradient(#100b18, #21102d);
+    --bg-faq-item: #292333;
+    --text-faq-item: #eee7f5;
+    --text-faq-answer: #c4a0e8;
+    --border-faq: rgba(196, 160, 232, .3);
+
+    /* Boutons */
+    --accent: #7e3fa0;
+    --accent-hover: #a56ac5;
+
+    /* Bouton dark mode */
+    --color-border: #a78bfa;
+    --switch-track: #25213a;
+    --switch-knob: #ffffff;
+    --switch-icon: #e5c7ff;
+    --bg-btn-image: url("../images/1230968-ciel-etoile-gratuit-photo.jpeg");
 }
 
 body {
@@ -45,209 +94,1126 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* NAVBAR */
 nav {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
-    padding: 3dvh 8dvh;
+    padding: 1rem 5%;
+    min-height: 4.5rem;
     background-color: var(--bg-nav);
-    transition: background-color 0.3s ease;
+    transition: background-color .3s ease;
+
+    h1 {
+        color: white;
+        position: absolute;
+        left: 2%;
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    #menu {
+        position: relative;
+        padding-bottom: .6rem;
+        margin-bottom: -.6rem;
+    }
+
+    #menuChapitres {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        left: -120%;
+        top: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid #6e3288;
+        z-index: 10;
+        transform: translateY(-10px);
+        border-radius: 1rem;
+        background: linear-gradient(315deg, rgb(23, 0, 58), rgb(38, 0, 44) 51%, rgb(26, 0, 37));
+        transition:
+            opacity .25s ease,
+            transform .25s ease,
+            visibility .25s;
+
+        a {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 1s steps(20, end);
+            white-space: nowrap;
+            padding-bottom: 2px;
+            border-bottom: 2px solid gray;
+        }
+    }
+
+    #menu:hover #menuChapitres {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #menu:hover #menuChapitres a {
+        clip-path: inset(0 0 0 0);
+    }
 
     a {
-        margin-right: 7dvh;
+        margin-right: clamp(.5rem, 2vw, 2rem);
         text-decoration: none;
-        font-size: 1.25rem;
-        color: var(--text-body);
-        transition: color 0.3s ease;
-        color: white;
+        font-size: clamp(.8rem, 1.2vw, 1.25rem);
+        color: var(--text-nav);
+        transition: color .3s ease;
     }
 }
 
+/* SWITCH DARK MODE */
 .switch {
     display: flex;
     align-items: center;
-    width: 10dvh;
-    height: 3.333dvh;
+    width: 3.5rem;
+    height: 1.7rem;
     position: relative;
     border: 1px solid var(--color-border);
-    border-radius: 1.667dvh;
-    background-color: var(--colo-switch);
+    border-radius: 2rem;
+    background-color: var(--switch-track);
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    flex-shrink: 0;
+    transition: background-color .3s, border-color .3s;
 
     .btn {
-        /* Gestion de l'arrière-plan du bouton (image ou uni) */
         background-image: var(--bg-btn-image);
         background-size: cover;
         background-position: center;
-        background-color: white;
+        background-color: var(--switch-knob);
 
-        width: 3.111dvh;
-        height: 3.111dvh;
+        width: 1.4rem;
+        height: 1.4rem;
         border-radius: 50%;
         position: absolute;
-        top: 0dvh;
-        left: 0.111dvh;
+        top: .1rem;
+        left: .1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: transform 0.3s ease, background-color 0.3s, background-image 0.3s;
+        transition:
+            transform .3s ease,
+            background-color .3s,
+            background-image .3s;
 
         i {
-            color: var(--color-btn);
-            font-size: 1.8dvh;
-            transition: color 0.3s;
+            color: var(--switch-icon);
+            font-size: .8rem;
+            transition: color .3s;
         }
     }
 }
 
-/* Déplacement fluide du bouton vers la droite en mode sombre */
 body.dark-mode .switch .btn {
-    transform: translateX(6.444dvh);
+    transform: translateX(1.8rem);
 }
 
+/* ACCUEIL */
 #ACCUEIL {
-    background-color: rgb(255, 255, 255);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    top: 0;
+
+    > img {
+        width: 105%;
+        height: 115%;
+        object-fit: cover;
+        filter: blur(6px) brightness(75%) hue-rotate(290deg);
+        position: absolute;
+        z-index: -10;
+        left: -10px;
+        top: -10px;
+    }
 
     #en-tete {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         align-items: center;
-        padding: 3em;
+        padding: 2.5em 5%;
+        position: relative;
 
-        button {
+        .bouton-connexion {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             width: 12em;
             height: 3em;
-            border: none;
-            background-color: #451f55;
-            position: relative;
+            padding-left: 1.5em;
+            border-radius: 2rem;
+            background-color: var(--accent);
+            text-decoration: none;
             color: white;
-
+            font-weight: 600;
+            transition: background-color .3s ease;
         }
 
-        img {
+        .bouton-connexion:hover {
+            background-color: var(--accent-hover);
+        }
+
+        #LogoConnexionGoogle {
             width: 3.5em;
             height: 3.5em;
             background-color: rgb(231, 231, 231);
             border-radius: 50%;
-            border: 3px solid #451f55;
-            position: absolute;
-            right: 11.5em;
+            position: relative;
+            right: 13em;
+            pointer-events: none;
         }
     }
 
     #principal {
-        /* background-color: red; */
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        margin-top: 5em;
-        margin-bottom: 7em;
+        text-align: center;
+        padding: 0 5%;
+        margin-bottom: 6em;
 
         h1 {
-            font-size: 10em;
-            color: #451f55;
+            font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+            color: #ffbb28;
+            margin-top: .3em;
+            font-family: var(--font-title);
         }
 
         h2 {
-            font-size: 5em;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            margin-top: .2em;
+            font-family: var(--font-title);
         }
 
-        h4 {
-            font-size: 2em;
+        h3 {
+            font-size: clamp(1.1rem, 1.8vw, 1.6rem);
             font-weight: 300;
-            margin-top: 3dvh;
-            width: 33%;
-            text-align: center;
+            margin-top: 1.2em;
+            max-width: 48rem;
+            line-height: 1.5;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .hero-bouton {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: .85rem 1.6rem;
+            border-radius: .6rem;
+            border: 1px solid rgba(255, 255, 255, .45);
+            background-color: rgba(16, 12, 29, .55);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color .25s ease, transform .25s ease, border-color .25s ease;
+        }
+
+        .hero-bouton:hover {
+            background-color: rgba(255, 255, 255, .15);
+            transform: translateY(-2px);
+        }
+
+        .hero-bouton--principal {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .hero-bouton--principal:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
         }
 
         div {
             display: flex;
-            width: 50%;
-            height: 2.5em;
-            margin: 1em;
-            /* background-color: red; */
-            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: min(100%, 38rem);
+            margin: 1.5em auto;
+            gap: 8px;
 
             input {
-                width: 80%;
-                font-size: 1.5em;
-                padding-inline: .5em;
+                flex: 1 1 16rem;
+                height: 3em;
+                font-size: 1.1rem;
+                padding-inline: 1em;
+                background-color: var(--bg-faq-item);
+                color: var(--text-faq-item);
+                border-radius: .5em;
+                border: 1px solid var(--accent);
+                outline: none;
             }
 
             button {
-                width: 12em;
+                padding: 0 1.5em;
                 height: 3em;
+                font-size: 1.1rem;
+                font-weight: 600;
                 border: none;
                 border-radius: .5em;
-                background-color: #451f55;
-                position: relative;
+                background-color: var(--accent);
                 color: white;
+                cursor: pointer;
+                transition: background-color .3s ease;
+            }
+
+            button:hover {
+                background-color: var(--accent-hover);
             }
         }
 
-        a {
-            align-self: start;
-            margin-left: 25dvw;
-
-            img {
-                width: 5em;
-            }
+        > a img {
+            width: 3.5em;
+            margin-top: .5em;
         }
-
     }
 }
 
-
-
+/* PRÉSENTATION PHP */
 #PARTIE-PRESENTATION-PHP {
-    height: 200dvh;
-    background-color: #451f55;
-    padding: 2em;
+    min-height: 100dvh;
+    background: var(--bg-presentation);
+    padding: 5em 5%;
     display: flex;
     flex-direction: column;
     gap: 5em;
+
     .article {
         width: 90%;
         display: flex;
-        gap: 5dvw;
-        font-size: 1.5em;
-        color: white;
+        align-items: center;
+        gap: 4vw;
+        font-size: clamp(1rem, 1.3vw, 1.35rem);
+        line-height: 1.7;
+        color: var(--text-presentation);
+
         img {
-            height: 50dvh;
+            max-width: 42%;
+            max-height: 45dvh;
+            object-fit: cover;
             border-radius: 2rem;
         }
+
         h2 {
-            color: aqua;
+            color: var(--heading-presentation);
             margin-bottom: 1em;
+            font-family: var(--font-title);
+        }
+    }
+
+    article:nth-child(2) {
+        align-self: flex-end;
+    }
+}
+
+/* PARCOURS : LES 15 CHAPITRES (CARROUSEL) */
+#PARCOURS {
+    padding: 5rem 5%;
+    background-color: var(--bg-body);
+    color: var(--text-body);
+    transition: background-color .3s ease, color .3s ease;
+}
+
+.parcours-entete {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.parcours-entete h2 {
+    font-family: var(--font-title);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: #290044;
+    margin-bottom: .5rem;
+}
+
+body.dark-mode .parcours-entete h2 {
+    color: var(--heading-presentation);
+}
+
+.parcours-intro {
+    font-size: 1.05rem;
+    color: #5a4b6b;
+    max-width: 44rem;
+}
+
+body.dark-mode .parcours-intro {
+    color: var(--text-body);
+    opacity: .85;
+}
+
+.carrousel-commandes {
+    display: flex;
+    gap: .5rem;
+}
+
+.carrousel-fleche {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: .5rem;
+    border: 1px solid rgba(56, 2, 87, .2);
+    background-color: var(--bg-body);
+    color: #290044;
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+body.dark-mode .carrousel-fleche {
+    color: var(--text-body);
+    border-color: var(--border-faq);
+}
+
+.carrousel-fleche[hidden] {
+    display: none;
+}
+
+.carrousel-fleche:hover:not(:disabled) {
+    background-color: #451f55;
+    border-color: #451f55;
+    color: #ffffff;
+}
+
+.carrousel-fleche:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+}
+
+.carrousel-piste {
+    list-style: none;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 18.5rem;
+    gap: 1.35rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 1.5rem;
+}
+
+.carrousel-piste::-webkit-scrollbar {
+    height: 6px;
+}
+
+.carrousel-piste::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.carrousel-piste::-webkit-scrollbar-thumb {
+    background: #451f55;
+    border-radius: 999px;
+}
+
+.carrousel-piste > li {
+    scroll-snap-align: start;
+    display: flex;
+}
+
+/* CARTE */
+.carte-chapitre {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 1.15rem;
+    overflow: hidden;
+    background-color: #f8f7fa;
+    border: 1px solid rgba(69, 31, 85, .22);
+    box-shadow: 0 4px 16px rgba(41, 0, 68, .06);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+body.dark-mode .carte-chapitre {
+    background-color: var(--bg-faq-item);
+    border-color: var(--border-faq);
+}
+
+.carte-chapitre:hover {
+    transform: translateY(-4px);
+    border-color: #451f55;
+    box-shadow: 0 12px 26px rgba(69, 31, 85, .15);
+}
+
+/* EN-TÊTE VISUEL DE LA CARTE */
+.carte-visuel {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem 1.15rem;
+    height: 7.4rem;
+    background: linear-gradient(135deg, #211038, #3b1c5e);
+    overflow: hidden;
+}
+
+.carte--demarrer .carte-visuel     { background: linear-gradient(135deg, #062b33 0%, #0d4b59 100%); }
+.carte--bases .carte-visuel        { background: linear-gradient(135deg, #0f1636 0%, #1d2b64 100%); }
+.carte--logique .carte-visuel      { background: linear-gradient(135deg, #2e1b0a 0%, #573413 100%); }
+.carte--fonctions .carte-visuel    { background: linear-gradient(135deg, #1d0f36 0%, #381d66 100%); }
+.carte--organisation .carte-visuel { background: linear-gradient(135deg, #0a2922 0%, #144f42 100%); }
+.carte--web .carte-visuel          { background: linear-gradient(135deg, #330c28 0%, #5e1749 100%); }
+.carte--pratique .carte-visuel     { background: linear-gradient(135deg, #0e2236 0%, #1b4166 100%); }
+.carte--fichiers .carte-visuel     { background: linear-gradient(135deg, #2b170d 0%, #522c19 100%); }
+.carte--etat .carte-visuel         { background: linear-gradient(135deg, #270d33 0%, #4b1961 100%); }
+
+.carte-numero {
+    position: absolute;
+    top: -.35rem;
+    right: .75rem;
+    font-family: var(--font-title);
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: rgba(255, 255, 255, .14);
+    pointer-events: none;
+    user-select: none;
+}
+
+.carte-visuel code {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: .35rem .65rem;
+    border-radius: .4rem;
+    background-color: rgba(5, 10, 20, .72);
+    font-family: var(--font-code);
+    font-size: .78rem;
+    font-weight: 500;
+    color: #38e8ff;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* CORPS DE LA CARTE */
+.carte-corps {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    padding: 1.15rem 1.25rem 1.35rem;
+}
+
+.carte-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: .65rem;
+    font-size: .76rem;
+}
+
+.carte-tag {
+    padding: .22rem .7rem;
+    border-radius: 999px;
+    background-color: #ece3f5;
+    color: #451f55;
+    font-weight: 700;
+}
+
+.carte--demarrer .carte-tag     { background-color: #d6eef2; color: #0e5a6b; }
+.carte--bases .carte-tag        { background-color: #dfe4f7; color: #243882; }
+.carte--logique .carte-tag      { background-color: #f3e4d3; color: #7a4714; }
+.carte--fonctions .carte-tag    { background-color: #e8dff7; color: #482285; }
+.carte--organisation .carte-tag { background-color: #d8f0ea; color: #166150; }
+.carte--web .carte-tag          { background-color: #f5dceb; color: #7a1c5e; }
+.carte--pratique .carte-tag     { background-color: #dce9f5; color: #1f4e7a; }
+.carte--fichiers .carte-tag     { background-color: #f2e1d8; color: #6e371b; }
+.carte--etat .carte-tag         { background-color: #eddcf5; color: #5e1d7a; }
+
+body.dark-mode .carte-tag {
+    background-color: rgba(192, 132, 252, .18);
+    color: #d8b4fe;
+}
+
+.carte-sections {
+    color: #6b5b7b;
+    font-weight: 500;
+}
+
+body.dark-mode .carte-sections {
+    color: #b8b3c5;
+}
+
+.carte-corps h3 {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #290044;
+    margin-bottom: .25rem;
+}
+
+body.dark-mode .carte-corps h3 {
+    color: #eee7f5;
+}
+
+.carte-soustitre {
+    font-size: .82rem;
+    font-style: italic;
+    color: #6b5b7b;
+    margin-bottom: .75rem;
+}
+
+body.dark-mode .carte-soustitre {
+    color: #b8b3c5;
+}
+
+.carte-desc {
+    font-size: .86rem;
+    line-height: 1.55;
+    color: #3a2d47;
+    margin-bottom: 1.35rem;
+    flex: 1;
+}
+
+body.dark-mode .carte-desc {
+    color: #d4cfe0;
+}
+
+.carte-lien {
+    display: inline-block;
+    padding: .55rem 1.15rem;
+    border-radius: .5rem;
+    background-color: #451f55;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .84rem;
+    transition: background-color .2s ease, transform .2s ease;
+}
+
+.carte-lien:hover {
+    background-color: #6e3288;
+}
+
+body.dark-mode .carte-lien {
+    background-color: var(--accent);
+}
+
+body.dark-mode .carte-lien:hover {
+    background-color: var(--accent-hover);
+}
+
+/* NOUVEAUTÉS PHP */
+#NOUVEAUTES-PHP {
+    min-height: 100dvh;
+    padding: 4%;
+    background: var(--bg-news);
+
+    h2 {
+        color: var(--text-news);
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin-bottom: 2em;
+        font-family: var(--font-title);
+    }
+
+    #articleContainer {
+        display: flex;
+        flex-wrap: wrap;
+        width: 660px;
+        column-gap: 0;
+        row-gap: 0;
+        position: relative;
+
+        .article {
+            position: absolute;
+            display: block;
+            width: 311px;
+            height: 280px;
+            transition: 1s;
+            transform: scale(1.2);
+
+            .titre-article {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 80%;
+                transform: translate(-50%, -40%);
+                color: white;
+                font-size: 1.4rem;
+                font-weight: bold;
+                text-align: center;
+                opacity: 0;
+                transition: opacity .5s ease;
+                z-index: 1;
+                font-style: italic;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                clip-path: polygon(
+                    25% 0%,
+                    75% 0%,
+                    100% 50%,
+                    75% 100%,
+                    25% 100%,
+                    0% 50%
+                );
+                object-fit: cover;
+                transition: filter .5s ease;
+            }
+        }
+
+        .article:nth-child(1) {
+            left: 0;
+            top: 0;
+        }
+
+        .article:nth-child(2) {
+            left: 90%;
+            top: 0;
+        }
+
+        .article:nth-child(3) {
+            left: 45%;
+            top: 177.6px;
+        }
+
+        .article:nth-child(4) {
+            left: 135%;
+            top: 177.6px;
+        }
+
+        .article:hover {
+            transform: scale(1.4);
+            transition: 1s ease-in-out;
+            filter: drop-shadow(0px 4px 10px rgba(56, 2, 87, 1));
+            z-index: 2;
+        }
+
+        .article:hover img {
+            filter: brightness(35%);
+        }
+
+        .article:hover .titre-article {
+            opacity: 1;
         }
     }
 }
 
+/* FAQ */
+#FAQ {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-faq);
+    color: white;
+    padding: 4% 5%;
 
+    h2 {
+        font-size: clamp(2.5rem, 4vw, 4rem);
+        border: 2px solid white;
+        border-radius: .2em;
+        padding: .3em .8em;
+        font-family: var(--font-title);
+    }
 
+    #questions {
+        margin-top: 4em;
+        width: min(100%, 55rem);
+        display: grid;
+        gap: 1em;
+        font-size: clamp(1.1rem, 1.4vw, 1.4rem);
 
+        article {
+            width: 100%;
+            max-height: 75px;
+            overflow: hidden;
+            background-color: var(--bg-faq-item);
+            color: var(--text-faq-item);
+            display: grid;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border-radius: .5em;
+            cursor: pointer;
+            transition: max-height 1s ease;
 
+            .reponse {
+                border-top: 3px solid var(--border-faq);
+                margin-top: 1.5rem;
+                padding-top: 1rem;
+                visibility: hidden;
+                opacity: 0;
+                transition: 1.5s;
+                color: var(--text-faq-answer);
+                font-style: italic;
+            }
+
+            #reponseCode {
+                font-family: var(--font-code);
+                margin-top: .5rem;
+            }
+        }
+
+        article:hover,
+        article:focus-within {
+            max-height: 350px;
+            transition: 1.5s;
+        }
+
+        article:hover .reponse,
+        article:focus-within .reponse {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
+/* FOOTER */
 footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
     width: 100%;
-    height: 10dvh;
+    min-height: 5rem;
+    padding: .75rem 5%;
     background-color: var(--bg-footer);
     color: var(--text-footer);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    gap: 1rem;
+    transition: background-color .3s ease, color .3s ease;
 
     img {
-        max-height: 100%;
+        max-height: 3.5rem;
+        max-width: 15%;
         height: auto;
+        object-fit: contain;
     }
 
     p {
-        font-size: 1.2rem;
+        font-size: clamp(.75rem, 1.2vw, 1.2rem);
+        text-align: center;
     }
 }
+```[cite: 36, 37, 38, 39]
+
+---
+
+### 2. Fichier `css/navigation.css`
+
+```css
+/* ==========================================================
+   navigation.css — partagé par TOUTES les pages
+   (à charger APRÈS le CSS propre à chaque page)
+   - Recherche dans la barre de navigation
+   - Menu « Chapitres » utilisable au clavier
+   - Navigation précédent / suivant entre chapitres
+   - Utilitaires d'accessibilité
+   ========================================================== */
+
+/* Texte réservé aux lecteurs d'écran */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Le panneau de recherche se place par rapport à la barre de navigation */
+nav {
+    position: relative;
+}
+
+/* Focus clavier bien visible */
+nav a:focus-visible,
+.switch:focus-visible,
+.recherche-bouton:focus-visible {
+    outline: 2px solid #00ffff;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Le menu « Chapitres » s'ouvre aussi au clavier (Tab) et au toucher */
+nav #menu:focus-within #menuChapitres {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+nav #menu:focus-within #menuChapitres a {
+    clip-path: inset(0 0 0 0);
+}
+
+/* Page courante dans le menu */
+nav a[aria-current="page"] {
+    border-bottom: 2px solid #00ffff;
+    padding-bottom: 2px;
+}
+
+/* Logo texte « /n » utilisé sur les pages de chapitres */
+nav .nav-logo {
+    position: absolute;
+    left: 2%;
+    margin: 0;
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+
+/* ---------- RECHERCHE ---------- */
+
+.recherche-bouton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-right: clamp(.5rem, 2vw, 2rem);
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color .2s ease, border-color .2s ease;
+}
+
+.recherche-bouton[hidden] {
+    display: none;
+}
+
+.recherche-bouton:hover,
+.recherche-bouton[aria-expanded="true"] {
+    background-color: rgba(255, 255, 255, .14);
+    border-color: rgba(255, 255, 255, .3);
+}
+
+.recherche-bouton svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.recherche-panneau {
+    position: absolute;
+    top: 100%;
+    right: clamp(1rem, 4vw, 4rem);
+    z-index: 100;
+    width: min(34rem, calc(100vw - 2rem));
+    padding: .9rem;
+    border: 1px solid #6e3288;
+    border-radius: 1rem;
+    background: linear-gradient(315deg, rgb(23, 0, 58) 0%, rgb(38, 0, 44) 51%, rgb(26, 0, 37) 100%);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
+    color: #ffffff;
+}
+
+.recherche-panneau[hidden] {
+    display: none;
+}
+
+.recherche-champ {
+    width: 100%;
+    padding: .7rem 1rem;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: .6rem;
+    background: rgba(255, 255, 255, .08);
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.recherche-champ::placeholder {
+    color: rgba(255, 255, 255, .6);
+}
+
+.recherche-champ:focus {
+    outline: 2px solid #00ffff;
+    outline-offset: 1px;
+}
+
+.recherche-titre {
+    margin: .9rem .25rem .3rem;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #cbb6e6;
+}
+
+.recherche-resultats {
+    list-style: none;
+    max-height: min(60vh, 24rem);
+    overflow-y: auto;
+}
+
+/* On neutralise les règles « nav a » (marge, taille) pour les liens du panneau */
+nav .recherche-panneau .recherche-resultats a {
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+    margin: 0;
+    padding: .55rem .75rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+nav .recherche-panneau .recherche-resultats a:hover,
+nav .recherche-panneau .recherche-resultats a:focus-visible {
+    background: rgba(165, 106, 197, .3);
+    outline: none;
+}
+
+.recherche-resultats .recherche-parent {
+    font-size: .75rem;
+    color: #cbb6e6;
+}
+
+.recherche-resultats .recherche-section a {
+    padding-left: 1.5rem;
+}
+
+.recherche-etat {
+    margin: .6rem .25rem 0;
+    font-size: .85rem;
+    color: #cbb6e6;
+}
+
+.recherche-aide {
+    margin: .5rem .25rem 0;
+    font-size: .75rem;
+    color: rgba(255, 255, 255, .55);
+}
+
+.recherche-aide kbd {
+    padding: 0 .35rem;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: .25rem;
+    font-family: var(--font-code, monospace);
+    font-size: .75rem;
+}
+
+
+/* ---------- NAVIGATION ENTRE CHAPITRES ---------- */
+/* L'élément est un <nav> : on neutralise donc les styles de la barre principale */
+
+nav.chapitre-nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 1rem;
+    padding: 0;
+    margin-top: clamp(1.2rem, 3vw, 30px);
+    background: transparent;
+}
+
+nav.chapitre-nav a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .25rem;
+    margin: 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border-faq, rgba(56, 2, 87, .3));
+    border-radius: 16px;
+    background: var(--bg-body, #ffffff);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+    color: var(--text-body, #222222);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: border-color .25s ease, transform .25s ease;
+}
+
+nav.chapitre-nav a:hover,
+nav.chapitre-nav a:focus-visible {
+    border-color: var(--accent, #451f55);
+    transform: translateY(-2px);
+}
+
+nav.chapitre-nav .chapitre-nav__etiquette {
+    font-size: .8rem;
+    opacity: .75;
+}
+
+nav.chapitre-nav strong {
+    color: var(--accent, #451f55);
+    font-family: var(--font-title, sans-serif);
+    font-size: 1.05rem;
+}
+
+nav.chapitre-nav .chapitre-nav__suiv {
+    text-align: right;
+}
+
+nav.chapitre-nav .chapitre-nav__centre {
+    align-items: center;
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    nav.chapitre-nav {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    nav.chapitre-nav .chapitre-nav__centre {
+        grid-column: 1 / -1;
+        order: 3;
+    }
+}
+
+
+/* ---------- BARRE DE NAVIGATION SUR PETITS ÉCRANS ---------- */
+
+@media (max-width: 900px) {
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: .6rem 1rem;
+        padding: 1rem;
+    }
+
+    nav > img,
+    nav > h1,
+    nav > .nav-logo {
+        position: static;
+    }
+
+    nav > a {
+        margin-right: 0;
+    }
+
+    .recherche-bouton {
+        margin-right: 0;
+    }
+
+    .recherche-panneau {
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    nav.chapitre-nav a {
+        transition: none;
+    }
+}
+```[cite: 40]

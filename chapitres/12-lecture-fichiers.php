@@ -1,0 +1,72 @@
+<?php require __DIR__ . "/../elements/navbar.php"; ?>
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>12  Lecture des fichier - Slash N</title>
+    <link rel="stylesheet" href="../css/styleChapitres.css">
+  </head>
+
+  <main>
+    <h1>Chapitre 12 – Lecture des fichiers</h1>
+
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        PHP permet de lire le contenu de fichiers texte présents sur le serveur.
+        C’est utile pour charger des données, des configurations ou des logs.
+      </p>
+    </section>
+
+    <section>
+      <h2>Lire tout un fichier</h2>
+      <p>
+        La fonction <code>file_get_contents()</code> lit un fichier en une seule
+        fois :
+      </p>
+      <pre><code class="language-php">&lt;?php
+$contenu = file_get_contents('donnees.txt');
+echo $contenu;
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Lire un fichier ligne par ligne</h2>
+      <p>
+        On peut aussi transformer un fichier en tableau avec
+        <code>file()</code> :
+      </p>
+      <pre><code class="language-php">&lt;?php
+$lignes = file('donnees.txt');
+
+foreach ($lignes as $ligne) {
+    echo $ligne . "&lt;br&gt;";
+}
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Vérifier si un fichier existe</h2>
+      <pre><code class="language-php">&lt;?php
+if (file_exists('donnees.txt')) {
+    echo "Le fichier existe";
+} else {
+    echo "Fichier introuvable";
+}
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Bonnes pratiques</h2>
+      <ul>
+        <li>Toujours vérifier que le fichier existe avant de le lire</li>
+        <li>Faire attention au chemin du fichier (relatif ou absolu)</li>
+        <li>Éviter de lire de très gros fichiers d’un seul coup</li>
+      </ul>
+    </section>
+  </main>
+  <?php require_once __DIR__ . "/../elements/footer.php"; ?>
+
+</html>

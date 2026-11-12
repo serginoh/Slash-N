@@ -1,0 +1,373 @@
+<?php require __DIR__ . "/../elements/navbar.php"; ?>
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05 - Boucles</title>
+    <link rel="stylesheet" href="../css/styleChapitres.css">
+  </head>
+
+  <body>
+    <main>
+      <h1>Chapitre 05 – Les boucles</h1>
+
+      <section>
+        <h2>Introduction</h2>
+        <p>
+          Les boucles permettent de répéter plusieurs fois une instruction
+          ou un ensemble d'instructions sans devoir réécrire le même code.
+        </p>
+        <p>
+          Par exemple, si l'on souhaite afficher les nombres de 1 à 100,
+          il serait peu pratique d'écrire 100 fois une instruction
+          <code>echo</code>. Grâce aux boucles, PHP peut effectuer cette
+          opération automatiquement.
+        </p>
+        <p>
+          PHP possède principalement quatre types de boucles :
+          <code>while</code>, <code>do...while</code>, <code>for</code>
+          et <code>foreach</code>.
+        </p>
+      </section>
+
+      <section>
+        <h2>La boucle while</h2>
+        <p>
+          La boucle <code>while</code> permet de répéter un morceau de code
+          tant qu'une condition est vraie.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+$nombre = 1;
+
+while ($nombre <= 5) {
+    echo $nombre . "&lt;br&gt;";
+    $nombre++;
+}
+?&gt;</code></pre>
+
+        <p>
+          Dans cet exemple, PHP affiche les nombres de 1 à 5.
+          La variable <code>$nombre</code> commence à 1 et augmente de 1
+          à chaque répétition grâce à l'opérateur <code>++</code>.
+        </p>
+        <p>
+          Dès que <code>$nombre</code> dépasse 5, la condition devient
+          fausse et la boucle s'arrête.
+        </p>
+
+        <h3>Attention aux boucles infinies</h3>
+        <p>
+          Il faut toujours faire attention à ce que la condition puisse
+          devenir fausse. Sinon, la boucle risque de ne jamais s'arrêter.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+$nombre = 1;
+
+while ($nombre <= 5) {
+    echo $nombre;
+    // Oubli de $nombre++
+}
+?&gt;</code></pre>
+
+        <p>
+          Dans cet exemple, la variable ne change jamais de valeur.
+          La condition reste donc toujours vraie : c'est une boucle infinie.
+        </p>
+      </section>
+
+      <section>
+        <h2>La boucle do...while</h2>
+        <p>
+          La boucle <code>do...while</code> ressemble à la boucle
+          <code>while</code>, mais possède une différence importante :
+          le code est exécuté au moins une fois avant de vérifier la condition.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+$nombre = 1;
+
+do {
+    echo $nombre . "&lt;br&gt;";
+    $nombre++;
+} while ($nombre <= 5);
+?&gt;</code></pre>
+
+        <p>
+          Ici, PHP exécute d'abord le contenu du <code>do</code>,
+          puis vérifie la condition du <code>while</code>.
+        </p>
+
+        <h3>Différence entre while et do...while</h3>
+        <p>
+          Pour bien comprendre la différence, observons cet exemple :
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+$nombre = 10;
+
+// Avec while
+while ($nombre <= 5) {
+    echo "While exécuté";
+}
+
+// Avec do...while
+do {
+    echo "Do...while exécuté";
+} while ($nombre <= 5);
+?&gt;</code></pre>
+
+        <p>
+          La boucle <code>while</code> ne s'exécute pas puisque la condition
+          est fausse dès le départ.
+        </p>
+        <p>
+          En revanche, la boucle <code>do...while</code> s'exécute une fois
+          avant de vérifier la condition.
+        </p>
+      </section>
+
+      <section>
+        <h2>La boucle for</h2>
+        <p>
+          La boucle <code>for</code> est particulièrement utile lorsque
+          l'on connaît à l'avance le nombre de répétitions souhaitées.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+for ($i = 1; $i <= 5; $i++) {
+    echo $i . "&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+        <p>
+          Cette boucle affiche les nombres de 1 à 5.
+          Elle contient trois éléments importants :
+        </p>
+
+        <ul>
+          <li><code>$i = 1</code> : initialise la variable au début de la boucle.</li>
+          <li><code>$i <= 5</code> : définit la condition à respecter.</li>
+          <li><code>$i++</code> : augmente la variable de 1 après chaque répétition.</li>
+        </ul>
+
+        <p>
+          Ces trois éléments sont regroupés dans les parenthèses et séparés
+          par des points-virgules.
+        </p>
+
+        <h3>Décrémentation</h3>
+        <p>
+          Il est également possible de faire fonctionner une boucle
+          dans le sens inverse grâce à l'opérateur <code>--</code>.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+for ($i = 5; $i >= 1; $i--) {
+    echo $i . "&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+        <p>
+          Ici, PHP affiche les nombres de 5 à 1. La variable diminue de 1
+          à chaque répétition.
+        </p>
+      </section>
+
+      <section>
+        <h2>La boucle foreach</h2>
+        <p>
+          La boucle <code>foreach</code> est principalement utilisée pour
+          parcourir les tableaux. Elle permet de récupérer chaque élément
+          sans devoir gérer manuellement un compteur.
+        </p>
+
+        <h3>Parcourir un tableau simple</h3>
+
+        <pre><code class="language-php">&lt;?php
+$fruits = ["Pomme", "Banane", "Orange", "Fraise"];
+
+foreach ($fruits as $fruit) {
+    echo $fruit . "&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+        <p>
+          À chaque répétition, PHP récupère automatiquement l'élément suivant
+          du tableau et le stocke dans la variable <code>$fruit</code>.
+        </p>
+
+        <h3>Récupérer les clés et les valeurs</h3>
+        <p>
+          Il est également possible de récupérer à la fois la clé et la
+          valeur de chaque élément avec l'opérateur <code>=&gt;</code>.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+$personne = [
+    "prenom" => "Sophie",
+    "nom" => "Dupont",
+    "age" => 25
+];
+
+foreach ($personne as $cle => $valeur) {
+    echo $cle . " : " . $valeur . "&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+        <p>
+          Dans cet exemple :
+        </p>
+
+        <ul>
+          <li><code>$cle</code> contient le nom de la clé.</li>
+          <li><code>$valeur</code> contient la valeur correspondante.</li>
+        </ul>
+
+        <p>
+          Cette méthode est particulièrement pratique pour parcourir
+          des tableaux associatifs.
+        </p>
+      </section>
+
+      <section>
+        <h2>L'instruction break</h2>
+        <p>
+          L'instruction <code>break</code> permet d'arrêter immédiatement
+          une boucle, même si sa condition est encore vraie.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+for ($i = 1; $i <= 10; $i++) {
+
+    if ($i == 5) {
+        break;
+    }
+
+    echo $i . "&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+        <p>
+          Dans cet exemple, la boucle s'arrête dès que la variable
+          <code>$i</code> atteint 5.
+        </p>
+        <p>
+          Les nombres affichés seront donc 1, 2, 3 et 4.
+        </p>
+      </section>
+
+      <section>
+        <h2>L'instruction continue</h2>
+        <p>
+          L'instruction <code>continue</code> permet de passer directement
+          à la répétition suivante sans exécuter le reste du code de la
+          répétition actuelle.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+for ($i = 1; $i <= 5; $i++) {
+
+    if ($i == 3) {
+        continue;
+    }
+
+    echo $i . "&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+        <p>
+          Ici, lorsque <code>$i</code> vaut 3, PHP passe directement
+          à la répétition suivante.
+        </p>
+        <p>
+          Les nombres affichés seront donc 1, 2, 4 et 5.
+        </p>
+
+        <h3>Différence entre break et continue</h3>
+        <ul>
+          <li><code>break</code> : arrête complètement la boucle.</li>
+          <li><code>continue</code> : passe à la répétition suivante.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Les boucles imbriquées</h2>
+        <p>
+          Il est possible de placer une boucle à l'intérieur d'une autre.
+          On parle alors de boucles imbriquées.
+        </p>
+        <p>
+          Elles sont notamment utiles pour parcourir des tableaux à plusieurs
+          dimensions ou effectuer des répétitions complexes.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+for ($i = 1; $i <= 3; $i++) {
+
+    echo "Table de multiplication de $i :&lt;br&gt;";
+
+    for ($j = 1; $j <= 5; $j++) {
+        echo $i . " x " . $j . " = " . ($i * $j) . "&lt;br&gt;";
+    }
+
+    echo "&lt;br&gt;";
+}
+?&gt;</code></pre>
+
+        <p>
+          La première boucle contrôle le nombre principal et la deuxième
+          effectue les multiplications.
+        </p>
+        <p>
+          À chaque répétition de la boucle extérieure, la boucle intérieure
+          est exécutée entièrement.
+        </p>
+      </section>
+
+      <section>
+        <h2>Quelle boucle choisir ?</h2>
+        <p>
+          Chaque boucle possède ses avantages. Le choix dépend principalement
+          de la situation rencontrée.
+        </p>
+
+        <ul>
+          <li><code>while</code> : lorsque le nombre de répétitions dépend d'une condition.</li>
+          <li><code>do...while</code> : lorsque le code doit être exécuté au moins une fois.</li>
+          <li><code>for</code> : lorsque le nombre de répétitions est connu à l'avance.</li>
+          <li><code>foreach</code> : lorsque l'on souhaite parcourir un tableau.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Conclusion</h2>
+        <p>
+          Les boucles sont essentielles en PHP. Elles permettent d'automatiser
+          les tâches répétitives et de rendre le code plus court et plus
+          efficace.
+        </p>
+
+        <p>Voici les principales notions à retenir :</p>
+
+        <ul>
+          <li><code>while</code> : répète du code tant qu'une condition est vraie.</li>
+          <li><code>do...while</code> : exécute le code au moins une fois.</li>
+          <li><code>for</code> : répète du code un nombre défini de fois.</li>
+          <li><code>foreach</code> : parcourt les éléments d'un tableau.</li>
+          <li><code>break</code> : arrête une boucle.</li>
+          <li><code>continue</code> : passe à la répétition suivante.</li>
+        </ul>
+
+        <p>
+          Dans le prochain chapitre, nous découvrirons les fonctions,
+          qui permettent de regrouper des instructions afin de les réutiliser
+          facilement dans notre programme.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
