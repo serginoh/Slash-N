@@ -1,8 +1,10 @@
 * {
-    padding: 0%;
-    margin: 0%;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+        'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 :root {
@@ -21,7 +23,7 @@
     --text-presentation: #ffffff;
     --heading-presentation: #00ffff;
 
-    /* Nouveautés PHP*/
+    /* Nouveautés PHP */
     --bg-news: radial-gradient(#f1f1f1, #bbbbbb);
     --text-news: #451f55;
 
@@ -52,7 +54,6 @@
 body.dark-mode {
     color-scheme: dark;
 
-    /* Général */
     --bg-body: #12121a;
     --text-body: #e4e1eb;
     --bg-nav: #090812;
@@ -60,27 +61,22 @@ body.dark-mode {
     --bg-footer: #090812;
     --text-footer: #b8b3c5;
 
-    /* Présentation PHP */
     --bg-presentation: linear-gradient(315deg, #170d20, #21102d 51%, #0d1024);
     --text-presentation: #e4e1eb;
     --heading-presentation: #c084fc;
 
-    /* Nouveautés */
     --bg-news: radial-gradient(#292333, #17141f);
     --text-news: #d8b4fe;
 
-    /* FAQ */
     --bg-faq: linear-gradient(#100b18, #21102d);
     --bg-faq-item: #292333;
     --text-faq-item: #eee7f5;
     --text-faq-answer: #c4a0e8;
     --border-faq: rgba(196, 160, 232, .3);
 
-    /* Boutons */
     --accent: #7e3fa0;
     --accent-hover: #a56ac5;
 
-    /* Bouton dark mode */
     --color-border: #a78bfa;
     --switch-track: #25213a;
     --switch-knob: #ffffff;
@@ -88,31 +84,36 @@ body.dark-mode {
     --bg-btn-image: url("../images/1230968-ciel-etoile-gratuit-photo.jpeg");
 }
 
+
+
 body {
+    min-height: 100vh;
     background-color: var(--bg-body);
     color: var(--text-body);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color .3s ease, color .3s ease;
 }
+
 
 nav {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
-    padding: 3dvh 8dvh;
+    gap: clamp(.5rem, 2vw, 2rem);
+    padding: clamp(1rem, 2.5vw, 2rem) 5%;
     background-color: var(--bg-nav);
-    transition: background-color 0.3s ease;
+    transition: background-color .3s ease;
 
     h1 {
         color: white;
         position: absolute;
         left: 2%;
-        font-size: 2.5em;
+        font-size: clamp(1.2rem, 2.5vw, 2.5rem);
     }
 
     #menu {
         position: relative;
-        padding-bottom: 10px;
-        margin-bottom: -10px;
+        padding-bottom: .6rem;
+        margin-bottom: -.6rem;
     }
 
     #menuChapitres {
@@ -123,16 +124,20 @@ nav {
         top: 100%;
         display: flex;
         flex-direction: column;
-        gap: 2em;
+        gap: clamp(.8rem, 2vw, 2rem);
+        padding: clamp(.8rem, 2vw, 1.5rem);
         border: 1px solid #6e3288;
         z-index: 10;
         transform: translateY(-10px);
-        border-radius: 1em;
-        background: linear-gradient(315deg, rgb(23, 0, 58) 0%, rgb(38, 0, 44) 51%, rgb(26, 0, 37) 100%);
+        border-radius: 1rem;
+        background: linear-gradient(315deg,
+                rgb(23, 0, 58),
+                rgb(38, 0, 44) 51%,
+                rgb(26, 0, 37));
         transition:
-            opacity 0.25s ease,
-            transform 0.25s ease,
-            visibility 0.25s;
+            opacity .25s ease,
+            transform .25s ease,
+            visibility .25s;
 
         a {
             clip-path: inset(0 100% 0 0);
@@ -154,184 +159,188 @@ nav {
     }
 
     a {
-        margin-right: 7dvh;
+        margin-right: clamp(.3rem, 1.5vw, 1.5rem);
         text-decoration: none;
-        font-size: 1.25rem;
-        color: var(--text-body);
-        transition: color 0.3s ease;
-        color: white;
+        font-size: clamp(.8rem, 1.2vw, 1.25rem);
+        color: var(--text-nav);
+        transition: color .3s ease;
     }
 }
 
+
+/* DARK MODE */
 .switch {
     display: flex;
     align-items: center;
-    width: 10dvh;
-    height: 3.333dvh;
+    width: 3.5rem;
+    height: 1.7rem;
     position: relative;
     border: 1px solid var(--color-border);
-    border-radius: 1.667dvh;
-    background-color: var(--colo-switch);
+    border-radius: 2rem;
+    background-color: var(--switch-track);
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    flex-shrink: 0;
+    transition: background-color .3s, border-color .3s;
 
     .btn {
-        /* Gestion de l'arrière-plan du bouton (image ou uni) */
         background-image: var(--bg-btn-image);
         background-size: cover;
         background-position: center;
-        background-color: white;
+        background-color: var(--switch-knob);
 
-        width: 3.111dvh;
-        height: 3.111dvh;
+        width: 1.4rem;
+        height: 1.4rem;
         border-radius: 50%;
         position: absolute;
-        top: 0dvh;
-        left: 0.111dvh;
+        top: .1rem;
+        left: .1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: transform 0.3s ease, background-color 0.3s, background-image 0.3s;
+        transition:
+            transform .3s ease,
+            background-color .3s,
+            background-image .3s;
 
         i {
-            color: var(--color-btn);
-            font-size: 1.8dvh;
-            transition: color 0.3s;
+            color: var(--switch-icon);
+            font-size: .8rem;
         }
     }
 }
 
-/* Déplacement fluide du bouton vers la droite en mode sombre */
 body.dark-mode .switch .btn {
-    transform: translateX(6.444dvh);
+    transform: translateX(1.8rem);
 }
-
-
-
-
-
-
-
-
 
 
 /* FORMULAIRE */
 .connexionContainer {
-    min-height: 112vh;
+    min-height: calc(100vh - 5rem);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 20px;
+    padding: clamp(1.5rem, 5vw, 3.5rem) 5%;
     background: var(--bg-presentation);
-    transition: background 0.3s ease;
+    transition: background .3s ease;
 }
 
 /* Carte */
+
 .connexionCard {
     width: 100%;
-    max-width: 480px;
-    padding: 40px;
+    max-width: 30rem;
+    padding: clamp(1.5rem, 5vw, 2.5rem);
     background: var(--bg-body);
     color: var(--text-body);
     border: 1px solid var(--border-faq);
-    border-radius: 20px;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
-    transition: background 0.3s ease, color 0.3s ease;
+    border-radius: clamp(.8rem, 2vw, 1.25rem);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, .25);
+    transition: background .3s ease, color .3s ease;
 }
 
 /* En-tête */
+
 .connexionEnTete {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+
     h2 {
-            font-family: var(--font-title);
-            font-size: 26px;
-            margin-bottom: 10px;
-            color: var(--heading-presentation);
+        font-family: var(--font-title);
+        font-size: clamp(1.3rem, 3vw, 1.625rem);
+        margin-bottom: .625rem;
+        color: var(--heading-presentation);
     }
+
     p {
         font-family: var(--font-text);
-        font-size: 14px;
-        opacity: 0.75;
+        font-size: clamp(.8rem, 1.5vw, .875rem);
+        opacity: .75;
     }
 }
+
+/* Logo */
 
 .connexionLogo {
     display: inline-block;
-    width: 30%;
-    padding: 12px 20px;
-    margin-bottom: 15px;
+    width: min(30%, 8rem);
+    min-width: 5rem;
+    padding: .75rem 1rem;
+    margin-bottom: .9375rem;
     background: var(--accent);
     color: white;
-    border-radius: 10px;
+    border-radius: .625rem;
     font-family: var(--font-code);
-    font-size: 22px;
+    font-size: clamp(1rem, 2.5vw, 1.375rem);
     font-weight: 700;
 }
 
-/* Champs du formulaire */
+/* Champs */
+
 .connexionInfos {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
+
     label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            font-family: var(--font-text);
-        }
+        display: block;
+        margin-bottom: .5rem;
+        font-size: clamp(.8rem, 1.5vw, .875rem);
+        font-weight: 600;
+        font-family: var(--font-text);
+    }
 }
 
-    .connexionInfos input,
-    .connexionInfos select {
-        width: 100%;
-        padding: 14px 15px;
-        border: 1px solid var(--border-faq);
-        border-radius: 10px;
-        background: var(--bg-body);
-        color: var(--text-body);
-        font-size: 14px;
-        outline: none;
-        transition: border 0.3s ease, box-shadow 0.3s ease;
-    }
+.connexionInfos input,
+.connexionInfos select {
+    width: 100%;
+    min-width: 0;
+    padding: .875rem .9375rem;
+    border: 1px solid var(--border-faq);
+    border-radius: .625rem;
+    background: var(--bg-body);
+    color: var(--text-body);
+    font-size: clamp(.85rem, 1.5vw, .875rem);
+    outline: none;
+    transition: border .3s ease, box-shadow .3s ease;
+}
 
-    .connexionInfos input:focus,
-    .connexionInfos select:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(110, 50, 136, 0.15);
-    }
+.connexionInfos input:focus,
+.connexionInfos select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(110, 50, 136, .15);
+}
 
-        .connexionInfos input::placeholder {
-            color: var(--text-body);
-            opacity: 0.45;
-        }
+.connexionInfos input::placeholder {
+    color: var(--text-body);
+    opacity: .45;
+}
 
-/* Bouton d'connexion */
+/* Bouton */
+
 .connexionBouton {
     width: 100%;
-    padding: 15px;
+    padding: .9375rem;
     border: none;
-    border-radius: 10px;
+    border-radius: .625rem;
     background: var(--accent);
     color: white;
-    font-size: 16px;
+    font-size: clamp(.9rem, 1.5vw, 1rem);
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background .3s ease, transform .3s ease;
 }
 
-    .connexionBouton:hover {
-        background: var(--accent-hover);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
+.connexionBouton:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
+}
 
 /* Lien inscription */
+
 .connexionInscription {
-    /* background-color: #00ffff; */
     text-align: center;
-    margin-top: 25px;
-    font-size: 14px;
+    margin-top: 1.5625rem;
+    font-size: clamp(.8rem, 1.5vw, .875rem);
     opacity: .8;
 
     a {
@@ -347,43 +356,36 @@ body.dark-mode .switch .btn {
 }
 
 
-
-
 /* FOOTER */
+
 footer {
-    left: 0;
-    bottom: 0;
     width: 100%;
-    height: 10dvh;
+    min-height: 5rem;
+    padding: .75rem 5%;
     background-color: var(--bg-footer);
     color: var(--text-footer);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    gap: 1rem;
+    transition: background-color .3s ease, color .3s ease;
 
     img {
-        max-height: 100%;
+        max-height: 3.5rem;
+        max-width: 15%;
         height: auto;
+        object-fit: contain;
     }
 
     p {
-        font-size: 1.2rem;
+        font-size: clamp(.75rem, 1.2vw, 1.2rem);
+        text-align: center;
     }
 }
 
 
+/* DARK MODE */
 
-
-/* PARTIE POUR DARKMODE */
-/* TRANSITION GÉNÉRALE */
-body {
-    background-color: var(--bg-body);
-    color: var(--text-body);
-    transition: background-color .3s ease, color .3s ease;
-}
-
-/* NAVBAR */
 nav {
     background-color: var(--bg-nav);
 }
@@ -392,7 +394,6 @@ nav a {
     color: var(--text-nav);
 }
 
-/* SWITCH */
 .switch {
     background-color: var(--switch-track);
     border-color: var(--color-border);
@@ -407,7 +408,6 @@ nav a {
     color: var(--switch-icon);
 }
 
-/* FOOTER */
 footer {
     background-color: var(--bg-footer);
     color: var(--text-footer);
