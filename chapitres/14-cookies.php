@@ -1,0 +1,418 @@
+<?php require __DIR__ . "/../elements/navbar.php"; ?>
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>14 - Les cookies</title>
+    <link rel="stylesheet" href="../css/styleChapitres.css">
+  </head>
+
+  <body>
+    <main>
+      <h1>Chapitre 14 – Les cookies</h1>
+
+      <section>
+        <h2>Introduction</h2>
+        <p>
+          Les cookies sont de petits fichiers de données enregistrés
+          par un site internet dans le navigateur d'un utilisateur.
+          Ils permettent de conserver certaines informations entre
+          plusieurs visites ou pages d'un même site.
+        </p>
+
+        <p>
+          Par exemple, les cookies peuvent être utilisés pour mémoriser
+          les préférences d'un utilisateur, conserver son choix de langue
+          ou garder certaines informations de navigation.
+        </p>
+
+        <p>
+          Contrairement aux variables classiques de PHP, qui disparaissent
+          à la fin de l'exécution du script, les cookies peuvent conserver
+          des informations pendant une durée déterminée.
+        </p>
+      </section>
+
+      <section>
+        <h2>Créer un cookie avec setcookie()</h2>
+        <p>
+          Pour créer un cookie en PHP, on utilise la fonction
+          <code>setcookie()</code>.
+        </p>
+
+        <p>
+          Cette fonction permet de définir le nom du cookie, sa valeur
+          et sa durée de conservation.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+setcookie("prenom", "Sophie", time() + 3600);
+?&gt;</code></pre>
+
+        <p>
+          Dans cet exemple :
+        </p>
+
+        <ul>
+          <li><code>prenom</code> correspond au nom du cookie.</li>
+          <li><code>Sophie</code> correspond à sa valeur.</li>
+          <li><code>time() + 3600</code> définit sa date d'expiration.</li>
+        </ul>
+
+        <p>
+          La fonction <code>time()</code> retourne le timestamp actuel,
+          c'est-à-dire le nombre de secondes écoulées depuis le
+          1er janvier 1970.
+        </p>
+
+        <p>
+          En ajoutant 3600 secondes, le cookie expirera après une heure.
+        </p>
+
+        <p>
+          Attention : la fonction <code>setcookie()</code> doit être
+          appelée avant l'envoi de contenu au navigateur, notamment
+          avant le moindre HTML ou espace affiché.
+        </p>
+      </section>
+
+      <section>
+        <h2>Définir la durée de vie d'un cookie</h2>
+        <p>
+          La durée de vie d'un cookie est définie grâce à son
+          timestamp d'expiration.
+        </p>
+
+        <p>
+          Voici quelques exemples de durées :
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+// 10 minutes
+setcookie("test", "valeur", time() + 600);
+
+// 1 heure
+setcookie("test", "valeur", time() + 3600);
+
+// 1 jour
+setcookie("test", "valeur", time() + 86400);
+
+// 7 jours
+setcookie("test", "valeur", time() + (7 * 86400));
+
+// 30 jours
+setcookie("test", "valeur", time() + (30 * 86400));
+?&gt;</code></pre>
+
+        <p>
+          Si aucune date d'expiration n'est définie, le cookie est
+          généralement conservé uniquement pendant la session
+          du navigateur.
+        </p>
+      </section>
+
+      <section>
+        <h2>Lire un cookie avec $_COOKIE</h2>
+        <p>
+          Pour récupérer la valeur d'un cookie, PHP met à disposition
+          la superglobale <code>$_COOKIE</code>.
+        </p>
+
+        <p>
+          Il s'agit d'un tableau associatif contenant les cookies
+          transmis par le navigateur au serveur.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+setcookie("prenom", "Sophie", time() + 3600);
+?&gt;
+
+&lt;?php
+if (isset($_COOKIE["prenom"])) {
+    echo "Bonjour " . $_COOKIE["prenom"];
+} else {
+    echo "Aucun prénom enregistré.";
+}
+?&gt;</code></pre>
+
+        <p>
+          La fonction <code>isset()</code> permet de vérifier si
+          le cookie existe.
+        </p>
+
+        <p>
+          Attention : un cookie créé avec <code>setcookie()</code>
+          n'est généralement disponible dans <code>$_COOKIE</code>
+          qu'à partir de la requête HTTP suivante.
+        </p>
+
+        <p>
+          Il faut donc actualiser la page pour pouvoir lire le cookie
+          qui vient d'être créé.
+        </p>
+      </section>
+
+      <section>
+        <h2>Modifier un cookie</h2>
+        <p>
+          Pour modifier un cookie, il suffit d'utiliser à nouveau
+          <code>setcookie()</code> avec le même nom, mais une nouvelle
+          valeur.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+setcookie("prenom", "Marc", time() + 3600);
+?&gt;</code></pre>
+
+        <p>
+          Ici, le cookie nommé <code>prenom</code> contiendra désormais
+          la valeur <code>Marc</code>.
+        </p>
+
+        <p>
+          Il est important de conserver les mêmes paramètres de chemin
+          et de domaine si ceux-ci ont été définis lors de la création
+          du cookie.
+        </p>
+      </section>
+
+      <section>
+        <h2>Supprimer un cookie</h2>
+        <p>
+          Pour supprimer un cookie, on peut lui attribuer une date
+          d'expiration située dans le passé.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+setcookie("prenom", "", time() - 3600);
+?&gt;</code></pre>
+
+        <p>
+          En définissant une date d'expiration passée, le navigateur
+          est invité à supprimer le cookie.
+        </p>
+
+        <p>
+          Pour que cela fonctionne correctement, il faut utiliser
+          les mêmes paramètres de chemin et de domaine que ceux
+          utilisés lors de sa création.
+        </p>
+      </section>
+
+      <section>
+        <h2>Les options de sécurité des cookies</h2>
+        <p>
+          Les cookies peuvent contenir des informations importantes.
+          Il est donc nécessaire de prendre certaines précautions
+          pour éviter qu'ils soient utilisés de manière malveillante.
+        </p>
+
+        <p>
+          PHP permet de définir plusieurs options lors de la création
+          d'un cookie.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+setcookie("prenom", "Sophie", [
+    "expires" => time() + 3600,
+    "path" => "/",
+    "secure" => true,
+    "httponly" => true,
+    "samesite" => "Lax"
+]);
+?&gt;</code></pre>
+
+        <p>
+          Voici le rôle de chaque option :
+        </p>
+
+        <ul>
+          <li>
+            <code>expires</code> : définit la date d'expiration du cookie.
+          </li>
+          <li>
+            <code>path</code> : définit les pages du site pour lesquelles
+            le cookie est envoyé.
+          </li>
+          <li>
+            <code>secure</code> : indique que le cookie doit être transmis
+            uniquement par une connexion HTTPS.
+          </li>
+          <li>
+            <code>httponly</code> : empêche l'accès au cookie depuis
+            JavaScript côté navigateur.
+          </li>
+          <li>
+            <code>samesite</code> : limite l'envoi du cookie dans certaines
+            requêtes provenant d'autres sites.
+          </li>
+        </ul>
+
+        <p>
+          La valeur <code>Lax</code> est souvent un bon choix par défaut
+          pour l'option <code>samesite</code>.
+        </p>
+
+        <p>
+          Attention : l'option <code>secure</code> nécessite une connexion
+          HTTPS pour que le navigateur transmette le cookie.
+        </p>
+      </section>
+
+      <section>
+        <h2>Exemple pratique : mémoriser un prénom</h2>
+        <p>
+          Maintenant que nous connaissons les principales fonctions,
+          réalisons un petit exemple permettant de mémoriser le prénom
+          d'un visiteur.
+        </p>
+
+        <p>
+          Si le visiteur a déjà enregistré son prénom, le site lui
+          affiche un message de bienvenue personnalisé.
+          Sinon, un message lui indique qu'il n'est pas encore connu.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+if (isset($_POST["prenom"])) {
+
+    $prenom = htmlspecialchars(
+        $_POST["prenom"],
+        ENT_QUOTES,
+        "UTF-8"
+    );
+
+    setcookie("prenom", $prenom, [
+        "expires" => time() + (7 * 86400),
+        "path" => "/",
+        "secure" => true,
+        "httponly" => true,
+        "samesite" => "Lax"
+    ]);
+
+    header("Location: cookies.php");
+    exit;
+}
+?&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Bienvenue&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;?php if (isset($_COOKIE["prenom"])) { ?&gt;
+
+        &lt;h1&gt;
+            Bonjour
+            &lt;?= htmlspecialchars(
+                $_COOKIE["prenom"],
+                ENT_QUOTES,
+                "UTF-8"
+            ) ?&gt; !
+        &lt;/h1&gt;
+
+    &lt;?php } else { ?&gt;
+
+        &lt;h1&gt;Bienvenue sur notre site !&lt;/h1&gt;
+
+        &lt;form method="POST"&gt;
+            &lt;label for="prenom"&gt;Votre prénom :&lt;/label&gt;
+
+            &lt;input type="text" id="prenom" name="prenom" required&gt;
+
+            &lt;button type="submit"&gt;Enregistrer&lt;/button&gt;
+        &lt;/form&gt;
+
+    &lt;?php } ?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <p>
+          Dans cet exemple :
+        </p>
+
+        <ul>
+          <li>Le formulaire permet au visiteur d'envoyer son prénom.</li>
+          <li>PHP récupère l'information grâce à <code>$_POST</code>.</li>
+          <li><code>htmlspecialchars()</code> protège les données affichées.</li>
+          <li><code>setcookie()</code> enregistre le prénom pendant sept jours.</li>
+          <li><code>header()</code> redirige vers la page pour lire le cookie lors de la requête suivante.</li>
+        </ul>
+
+        <p>
+          Cet exemple est volontairement simple. Dans un véritable site,
+          il faudrait également valider les données reçues et gérer
+          correctement le consentement aux cookies lorsque celui-ci
+          est nécessaire.
+        </p>
+      </section>
+
+      <section>
+        <h2>Cookies et sessions : quelle différence ?</h2>
+        <p>
+          Les cookies et les sessions permettent tous les deux de
+          conserver des informations entre plusieurs requêtes.
+          Cependant, leur fonctionnement est différent.
+        </p>
+
+        <ul>
+          <li>
+            <strong>Cookies :</strong> les informations sont stockées
+            dans le navigateur de l'utilisateur.
+          </li>
+          <li>
+            <strong>Sessions :</strong> les informations sont stockées
+            côté serveur. Le navigateur conserve généralement un cookie
+            contenant l'identifiant de session.
+          </li>
+        </ul>
+
+        <p>
+          Les cookies sont pratiques pour mémoriser des préférences,
+          tandis que les sessions sont généralement utilisées pour
+          gérer les connexions des utilisateurs.
+        </p>
+
+        <p>
+          Nous verrons plus en détail le fonctionnement des sessions
+          dans le prochain chapitre.
+        </p>
+      </section>
+
+      <section>
+        <h2>Conclusion</h2>
+        <p>
+          Les cookies sont très utiles pour améliorer l'expérience
+          des visiteurs et conserver certaines informations entre
+          plusieurs visites.
+        </p>
+
+        <p>Voici les principales notions à retenir :</p>
+
+        <ul>
+          <li><code>setcookie()</code> : permet de créer ou modifier un cookie.</li>
+          <li><code>$_COOKIE</code> : permet de lire les cookies reçus.</li>
+          <li><code>time()</code> : permet de définir une date d'expiration.</li>
+          <li><code>isset()</code> : permet de vérifier l'existence d'un cookie.</li>
+          <li>Une date d'expiration passée permet de supprimer un cookie.</li>
+          <li><code>httponly</code>, <code>secure</code> et <code>samesite</code> améliorent la sécurité.</li>
+        </ul>
+
+        <p>
+          Dans le prochain chapitre, nous découvrirons les sessions
+          en PHP, qui permettent notamment de conserver les informations
+          d'un utilisateur pendant sa navigation sur un site.
+        </p>
+      </section>
+    </main>
+    <?php require_once __DIR__ . "/../elements/footer.php"; ?>
+
+  </body>
+</html>

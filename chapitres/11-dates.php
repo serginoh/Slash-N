@@ -1,0 +1,77 @@
+<?php require __DIR__ . "/../elements/navbar.php"; ?>
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>11 - Dates - Slash N</title>
+    <link rel="stylesheet" href="../css/styleChapitres.css">
+  </head>
+
+  <main>
+    <h1>Chapitre 11 – Les dates</h1>
+
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        PHP permet de manipuler facilement les dates et les heures. La fonction
+        la plus utilisée est <code>date()</code>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Afficher la date actuelle</h2>
+      <pre><code class="language-php">&lt;?php
+echo date('d/m/Y');        // 10/11/2026
+echo date('H:i:s');        // 20:15:30
+echo date('d/m/Y H:i');    // 10/11/2026 20:15
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Les formats utiles</h2>
+      <ul>
+        <li><code>d</code> → jour (01 à 31)</li>
+        <li><code>m</code> → mois (01 à 12)</li>
+        <li><code>Y</code> → année (2026)</li>
+        <li><code>H</code> → heure (00 à 23)</li>
+        <li><code>i</code> → minutes</li>
+        <li><code>s</code> → secondes</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Timestamp</h2>
+      <p>
+        Un timestamp est le nombre de secondes écoulées depuis le 1er janvier
+        1970. On l’obtient avec <code>time()</code> :
+      </p>
+      <pre><code class="language-php">&lt;?php
+echo time(); // Exemple : 1794336000
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Créer une date précise</h2>
+      <pre><code class="language-php">&lt;?php
+$date = mktime(0, 0, 0, 12, 25, 2026); // 25 décembre 2026
+echo date('d/m/Y', $date);
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Comparer des dates</h2>
+      <pre><code class="language-php">&lt;?php
+$aujourdhui = time();
+$noel = mktime(0, 0, 0, 12, 25, 2026);
+
+if ($aujourdhui < $noel) {
+    echo "Noël n'est pas encore passé";
+}
+?&gt;</code></pre>
+    </section>
+  </main>
+  <?php require_once __DIR__ . "/../elements/footer.php"; ?>
+
+</html>

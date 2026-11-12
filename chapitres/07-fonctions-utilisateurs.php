@@ -1,0 +1,101 @@
+<?php require __DIR__ . "/../elements/navbar.php"; ?>
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>07 - Fonctions Utilisateurs - Slash N</title>
+    <link rel="stylesheet" href="../css/styleChapitres.css">
+  </head>
+
+  <main>
+      
+
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        PHP propose de nombreuses fonctions internes (<code>strlen()</code>,
+        <code>str_replace()</code>…). On peut aussi créer ses propres fonctions
+        pour réutiliser du code facilement.
+      </p>
+    </section>
+
+    <section>
+      <h2>Définir une fonction</h2>
+      <pre><code class="language-php">&lt;?php
+function bonjour($nom) {
+    echo "Bonjour " . $nom;
+}
+
+bonjour("Jean");  // Affiche : Bonjour Jean
+bonjour("Mario"); // Affiche : Bonjour Mario
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Les paramètres</h2>
+      <p>
+        Les paramètres permettent de passer des informations à la fonction. On
+        peut aussi définir une valeur par défaut :
+      </p>
+      <pre><code class="language-php">&lt;?php
+function bonjour($nom = "visiteur") {
+    return "Bonjour " . $nom;
+}
+
+echo bonjour();        // Bonjour visiteur
+echo bonjour("Jean");  // Bonjour Jean
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>La valeur de retour</h2>
+      <p>
+        Une fonction peut retourner une valeur avec le mot-clé
+        <code>return</code>. Dès qu’un <code>return</code> est rencontré, la
+        fonction s’arrête.
+      </p>
+      <pre><code class="language-php">&lt;?php
+function addition($a, $b) {
+    return $a + $b;
+}
+
+$resultat = addition(5, 3);
+echo $resultat; // Affiche 8
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>La portée des variables</h2>
+      <p>
+        Une variable définie à l’extérieur d’une fonction n’est pas accessible à
+        l’intérieur. Il faut passer les données en paramètres.
+      </p>
+      <pre><code class="language-php">&lt;?php
+$nom = "Jean";
+
+function bonjour($nom) {
+    return "Bonjour " . $nom;
+}
+
+echo bonjour($nom);
+?&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Le typage</h2>
+      <p>
+        Depuis PHP 7, on peut préciser le type des paramètres et de la valeur de
+        retour :
+      </p>
+      <pre><code class="language-php">&lt;?php
+function bonjour(string $nom): string {
+    return "Bonjour " . $nom;
+}
+?&gt;</code></pre>
+    </section>
+  </main>
+  <?php require_once __DIR__ . "/../elements/footer.php"; ?>
+
+</html>
