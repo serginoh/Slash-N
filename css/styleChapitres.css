@@ -1,8 +1,9 @@
 * {
-    padding: 0%;
-    margin: 0%;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 :root {
@@ -21,7 +22,7 @@
     --text-presentation: #ffffff;
     --heading-presentation: #00ffff;
 
-    /* Nouveautés PHP*/
+    /* Nouveautés PHP */
     --bg-news: radial-gradient(#f1f1f1, #bbbbbb);
     --text-news: #451f55;
 
@@ -50,10 +51,11 @@
 }
 
 
+/* Dark mode */
+
 body.dark-mode {
     color-scheme: dark;
 
-    /* Général */
     --bg-body: #12121a;
     --text-body: #e4e1eb;
     --bg-nav: #090812;
@@ -61,27 +63,22 @@ body.dark-mode {
     --bg-footer: #090812;
     --text-footer: #b8b3c5;
 
-    /* Présentation PHP */
     --bg-presentation: linear-gradient(315deg, #170d20, #21102d 51%, #0d1024);
     --text-presentation: #e4e1eb;
     --heading-presentation: #c084fc;
 
-    /* Nouveautés */
     --bg-news: radial-gradient(#292333, #17141f);
     --text-news: #d8b4fe;
 
-    /* FAQ */
     --bg-faq: linear-gradient(#100b18, #21102d);
     --bg-faq-item: #292333;
     --text-faq-item: #eee7f5;
     --text-faq-answer: #c4a0e8;
     --border-faq: rgba(196, 160, 232, .3);
 
-    /* Boutons */
     --accent: #7e3fa0;
     --accent-hover: #a56ac5;
 
-    /* Bouton dark mode */
     --color-border: #a78bfa;
     --switch-track: #25213a;
     --switch-knob: #ffffff;
@@ -92,22 +89,27 @@ body.dark-mode {
 body {
     background-color: var(--bg-body);
     color: var(--text-body);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color .3s ease, color .3s ease;
+    min-width: 320px;
 }
 
+
+/* NAVBAR */
 nav {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
-    padding: 3dvh 8dvh;
+    padding: clamp(1rem, 3dvh, 2rem) clamp(1rem, 8vw, 8rem);
     background-color: var(--bg-nav);
-    transition: background-color 0.3s ease;
+    transition: background-color .3s ease;
+    position: relative;
+    gap: clamp(.5rem, 2vw, 2rem);
 
     h1 {
         color: white;
         position: absolute;
         left: 2%;
-        font-size: 2.5em;
+        font-size: clamp(1.2rem, 3vw, 2.5rem);
     }
 
     #menu {
@@ -125,15 +127,13 @@ nav {
         display: flex;
         flex-direction: column;
         gap: 2em;
+        padding: 1rem;
         border: 1px solid #6e3288;
         z-index: 10;
         transform: translateY(-10px);
         border-radius: 1em;
         background: linear-gradient(315deg, rgb(23, 0, 58) 0%, rgb(38, 0, 44) 51%, rgb(26, 0, 37) 100%);
-        transition:
-            opacity 0.25s ease,
-            transform 0.25s ease,
-            visibility 0.25s;
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
 
         a {
             clip-path: inset(0 100% 0 0);
@@ -155,122 +155,119 @@ nav {
     }
 
     a {
-        margin-right: 7dvh;
+        margin-right: clamp(.5rem, 2vw, 2rem);
         text-decoration: none;
-        font-size: 1.25rem;
-        color: var(--text-body);
-        transition: color 0.3s ease;
+        font-size: clamp(.85rem, 1.2vw, 1.25rem);
         color: white;
+        transition: color .3s ease;
     }
 }
 
+
+/* SWITCH DARK MODE */
 .switch {
     display: flex;
     align-items: center;
-    width: 10dvh;
-    height: 3.333dvh;
+    width: 3.5rem;
+    height: 1.7rem;
     position: relative;
     border: 1px solid var(--color-border);
-    border-radius: 1.667dvh;
-    background-color: var(--colo-switch);
+    border-radius: 2rem;
+    background-color: var(--switch-track);
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    flex-shrink: 0;
+    transition: background-color .3s, border-color .3s;
 
     .btn {
-        /* Gestion de l'arrière-plan du bouton (image ou uni) */
         background-image: var(--bg-btn-image);
         background-size: cover;
         background-position: center;
         background-color: white;
 
-        width: 3.111dvh;
-        height: 3.111dvh;
+        width: 1.4rem;
+        height: 1.4rem;
         border-radius: 50%;
         position: absolute;
-        top: 0dvh;
-        left: 0.111dvh;
+        top: .1rem;
+        left: .1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: transform 0.3s ease, background-color 0.3s, background-image 0.3s;
+        transition: transform .3s ease, background-color .3s, background-image .3s;
 
         i {
-            color: var(--color-btn);
-            font-size: 1.8dvh;
-            transition: color 0.3s;
+            color: var(--switch-icon);
+            font-size: .8rem;
+            transition: color .3s;
         }
     }
 }
 
-/* Déplacement fluide du bouton vers la droite en mode sombre */
 body.dark-mode .switch .btn {
-    transform: translateX(6.444dvh);
+    transform: translateX(1.8rem);
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 main {
     min-height: 90vh;
-    padding: 50px 10%;
+    padding: clamp(1.5rem, 5vw, 50px) clamp(1rem, 10%, 10%);
     background: var(--bg-presentation);
     color: var(--text-body);
-    transition: background 0.3s ease;
+    transition: background .3s ease;
 }
+
 
 /* Titre principal */
+
 main>h1 {
-    padding: 35px 25px;
-    margin-bottom: 35px;
+    padding: clamp(1.2rem, 3vw, 35px) clamp(1rem, 2vw, 25px);
+    margin-bottom: clamp(1.5rem, 3vw, 35px);
     border-radius: 20px;
     background: var(--bg-body);
     color: var(--accent);
     font-family: var(--font-title);
-    font-size: 2.5rem;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
+
+/* Paragraphes principaux */
 
 main>p {
-    padding: 35px 25px;
-    margin-bottom: 35px;
+    padding: clamp(1.2rem, 3vw, 35px) clamp(1rem, 2vw, 25px);
+    margin-bottom: clamp(1.5rem, 3vw, 35px);
     border-radius: 20px;
     background: var(--bg-body);
     color: var(--accent);
     font-family: var(--font-title);
-    font-size: 2.5rem;
+    font-size: clamp(1.1rem, 3vw, 2.5rem);
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
+
 /* Sections */
+
 main section {
-    padding: 35px;
-    margin-bottom: 30px;
+    padding: clamp(1.2rem, 3vw, 35px);
+    margin-bottom: clamp(1.2rem, 3vw, 30px);
     background: var(--bg-body);
     color: var(--text-body);
     border: 1px solid var(--border-faq);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+    transition: background .3s ease, color .3s ease, border .3s ease;
+    min-width: 0;
 }
 
-/* Titres paragraphes*/
+
+/* Titres */
+
 main section h2 {
     font-family: var(--font-title);
-    font-size: 1.8rem;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
     color: var(--accent);
     margin-bottom: 20px;
     padding-bottom: 12px;
@@ -279,50 +276,62 @@ main section h2 {
 
 main section h3 {
     font-family: var(--font-title);
-    font-size: 1.3rem;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
     color: var(--accent);
     margin: 25px 0 12px;
 }
 
+
 /* Paragraphes */
+
 main section p {
     font-family: var(--font-text);
-    font-size: 1rem;
+    font-size: clamp(.9rem, 1.2vw, 1rem);
     line-height: 1.8;
     margin-bottom: 18px;
+    overflow-wrap: break-word;
 }
 
+
 /* Code dans le texte */
+
 main section p code {
     background: rgba(126, 63, 160, 0.12);
     color: var(--accent);
     padding: 3px 7px;
     border-radius: 5px;
     font-family: var(--font-code);
-    font-size: 0.9em;
+    font-size: .9em;
+    overflow-wrap: break-word;
 }
 
+
 /* Blocs de code */
+
 main section pre {
     background: #171421;
     color: #e4e1eb;
-    padding: 25px;
+    padding: clamp(1rem, 2.5vw, 25px);
     margin: 20px 0;
     border-radius: 12px;
     border-left: 5px solid var(--accent);
     overflow-x: auto;
+    max-width: 100%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    -webkit-overflow-scrolling: touch;
 }
 
 main section pre code {
     color: #e4e1eb;
     font-family: var(--font-code);
-    font-size: 0.9rem;
+    font-size: clamp(.75rem, 1vw, .9rem);
     line-height: 1.8;
     white-space: pre;
 }
 
+
 /* Listes */
+
 main section ul,
 main section ol {
     padding-left: 25px;
@@ -332,18 +341,23 @@ main section ol {
 
 main section li {
     margin-bottom: 8px;
+    overflow-wrap: break-word;
 }
 
 main section li::marker {
     color: var(--accent);
 }
 
+
 /* Texte en gras */
+
 main section strong {
     color: var(--accent);
 }
 
+
 /* Tableaux */
+
 main section table {
     width: 100%;
     border-collapse: collapse;
@@ -352,9 +366,10 @@ main section table {
 
 main section th,
 main section td {
-    padding: 14px;
+    padding: clamp(.5rem, 1.5vw, 14px);
     border: 1px solid var(--border-faq);
     text-align: left;
+    overflow-wrap: break-word;
 }
 
 main section th {
@@ -366,61 +381,51 @@ main section tr:nth-child(even) {
     background: rgba(126, 63, 160, 0.06);
 }
 
+
 /* Survol des sections */
+
 main section:hover {
     border-color: var(--accent);
 }
 
+
 /* Sélection du texte */
+
 main ::selection {
     background: var(--accent);
     color: white;
 }
 
+
+/* FOOTER */
+
 footer {
-    left: 0;
-    bottom: 0;
     width: 100%;
-    height: 10dvh;
+    min-height: 5rem;
+    padding: .75rem 5%;
     background-color: var(--bg-footer);
     color: var(--text-footer);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    gap: 1rem;
+    transition: background-color .3s ease, color .3s ease;
 
     img {
-        max-height: 100%;
+        max-height: 3.5rem;
+        max-width: 15%;
         height: auto;
+        object-fit: contain;
     }
 
     p {
-        font-size: 1.2rem;
+        font-size: clamp(.8rem, 1.2vw, 1.2rem);
+        text-align: center;
     }
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-/* PARTIE POUR DARK MODE */
-
-/* TRANSITION GÉNÉRALE */
-body {
-    background-color: var(--bg-body);
-    color: var(--text-body);
-    transition: background-color .3s ease, color .3s ease;
-}
-
-/* NAVBAR */
+/* DARK MODE */
 nav {
     background-color: var(--bg-nav);
 }
@@ -429,7 +434,6 @@ nav a {
     color: var(--text-nav);
 }
 
-/* SWITCH */
 .switch {
     background-color: var(--switch-track);
     border-color: var(--color-border);
@@ -444,63 +448,6 @@ nav a {
     color: var(--switch-icon);
 }
 
-/* ACCUEIL */
-#ACCUEIL #en-tete button,
-#ACCUEIL #principal button {
-    background-color: var(--accent);
-    color: white;
-    transition: background-color .3s ease;
-}
-
-#ACCUEIL #en-tete button:hover,
-#ACCUEIL #principal button:hover {
-    background-color: var(--accent-hover);
-}
-
-#ACCUEIL #principal input {
-    background-color: var(--bg-faq-item);
-    color: var(--text-faq-item);
-    border-color: var(--accent);
-}
-
-/* PRÉSENTATION PHP */
-#PARTIE-PRESENTATION-PHP {
-    background: var(--bg-presentation);
-}
-
-#PARTIE-PRESENTATION-PHP .article {
-    color: var(--text-presentation);
-}
-
-#PARTIE-PRESENTATION-PHP h2 {
-    color: var(--heading-presentation);
-}
-
-/* NOUVEAUTÉS */
-#NOUVEAUTES-PHP {
-    background: var(--bg-news);
-}
-
-#NOUVEAUTES-PHP h1 {
-    color: var(--text-news);
-}
-
-/* FAQ */
-#FAQ {
-    background: var(--bg-faq);
-}
-
-#FAQ #questions article {
-    background-color: var(--bg-faq-item);
-    color: var(--text-faq-item);
-}
-
-#FAQ #questions article .reponse {
-    color: var(--text-faq-answer);
-    border-top-color: var(--border-faq);
-}
-
-/* FOOTER */
 footer {
     background-color: var(--bg-footer);
     color: var(--text-footer);
